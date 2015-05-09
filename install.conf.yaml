@@ -1,0 +1,28 @@
+- clean: ['~']
+
+- link:
+    ~/.zshrc:
+        relink: true
+        force: true
+        path: zshrc
+    ~/.gitignore_global:
+        relink: true
+        path: gitignore
+    ~/.gitconfig:
+        relink: true
+        path: gitconfig
+    ~/.zshenv:
+        relink: true
+        path: zshenv
+    ~/.vim/bundle/Vundle.vim:
+        relink: true
+        create: true
+        path: misc/Vundle.vim/
+    ~/.vimrc:
+        relink: true
+        path: vimrc
+
+- shell:
+    - git submodule update --init --recursive
+    - rm -f ~/.zcompdump*
+    - vim +PluginInstall +qall > /dev/null

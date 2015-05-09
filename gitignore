@@ -1,0 +1,9 @@
+*~
+.DS_Store
+.vimtags
+.ropeproject
+*.pyc
+*.sublime-workspace
+*.sublime-project
+musings/
+.python-version
