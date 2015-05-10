@@ -57,9 +57,10 @@ set foldmethod=indent
 
 set list
 set listchars=tab:▸\ ,eol:¬
-if version >= 704
+try
     set listchars+=space:.
-endif
+catch
+endtry
 
 nnoremap j gj
 nnoremap k gk
