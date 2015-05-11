@@ -18,6 +18,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
+Bundle 'scrooloose/syntastic'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 call vundle#end()
