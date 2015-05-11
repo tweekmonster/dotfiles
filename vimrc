@@ -18,6 +18,7 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
+Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
@@ -122,12 +123,14 @@ let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'do
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+" " let g:airline#extensions#tmuxline#enabled = 0
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 set laststatus=2
 " }}}
 
@@ -188,10 +191,13 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 function! HostStatusLine(...)
-    call a:1.add_section('Search', ' ' . hostname() . ' ')
+    call a:1.add_raw(' ' . hostname() . ' ')
     return 0
 endfunc
-call airline#add_statusline_func('HostStatusLine')
+try
+    call airline#add_statusline_func('HostStatusLine')
+catch
+endtry
 "}}}
 
 " vim:foldmethod=marker:foldlevel=0

@@ -21,6 +21,9 @@
     ~/.vimrc:
         relink: true
         path: vimrc
+    ~/.tmux.conf:
+        relink: true
+        path: tmux.conf
 
 - shell:
     - git submodule update --init --recursive
