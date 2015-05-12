@@ -20,14 +20,21 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'jez/vim-superman'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 call vundle#end()
 " }}}
 
+" GUI {{{
+set guifont=Source\ Code\ Pro\ for\ Powerline:h11
+" }}}
+
 " Misc {{{
 syntax enable
 filetype plugin indent on
+
+let xml_syntax_folding=1
 
 set ttyfast
 set modelines=1
@@ -57,6 +64,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 " Folding {{{
 set foldenable
+set foldmethod=syntax
 set foldlevelstart=10
 set foldnestmax=10
 
@@ -157,6 +165,8 @@ augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
     autocmd FileType python setlocal completeopt-=preview
+    autocmd FileType man setlocal nomodified nomodifiable nolist number
+    autocmd FileType xml setlocal foldlevelstart=2
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh

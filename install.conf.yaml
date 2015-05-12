@@ -21,6 +21,14 @@
     ~/.vimrc:
         relink: true
         path: vimrc
+    ~/.vim/syntax:
+        relink: true
+        create: true
+        path: misc/vim_syntax
+    ~/.vim/after:
+        relink: true
+        create: true
+        path: misc/vim_after
     ~/.tmux.conf:
         relink: true
         path: tmux.conf

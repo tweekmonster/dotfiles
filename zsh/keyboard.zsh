@@ -8,6 +8,10 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
+# Bind ESC to bell in vi-mode
+bindkey -sM vicmd '^[' '^G'
+
+
 function zle-line-init zle-keymap-select() {
     zle reset-prompt
 }
