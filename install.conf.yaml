@@ -21,10 +21,10 @@
     ~/.vimrc:
         relink: true
         path: vimrc
-    ~/.vim/syntax:
-        relink: true
-        create: true
-        path: misc/vim_syntax
+    # ~/.vim/syntax:
+    #     relink: true
+    #     create: true
+    #     path: misc/vim_syntax
     ~/.vim/plugin:
         relink: true
         create: true
