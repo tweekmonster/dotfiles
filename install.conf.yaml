@@ -25,6 +25,10 @@
         relink: true
         create: true
         path: misc/vim_syntax
+    ~/.vim/plugin:
+        relink: true
+        create: true
+        path: misc/vim_plugin
     ~/.vim/after:
         relink: true
         create: true

@@ -111,6 +111,8 @@ let mapleader=","
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <silent> <leader>l :call ToggleNumber()<CR>
+
 " highlight last inserted text
 nnoremap gV `[v`]
 
