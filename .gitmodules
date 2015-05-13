@@ -16,3 +16,6 @@
 [submodule "misc/Vundle.vim"]
 	path = misc/Vundle.vim
 	url = https://github.com/gmarik/Vundle.vim.git
+[submodule "zsh/zaw"]
+	path = zsh/zaw
+	url = https://github.com/zsh-users/zaw.git

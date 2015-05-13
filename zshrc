@@ -1,4 +1,6 @@
 # zmodload zsh/zprof
+# oh-my-zsh covers the other history related options
+setopt hist_ignore_all_dups
 
 dotfiles=$(dirname "${${(%):-%N}:A}")
 fpath=("${dotfiles}/zsh/zsh-completions/src" $fpath)
@@ -26,6 +28,7 @@ fi
 
 source "${ZSH}/oh-my-zsh.sh"
 
+source "${dotfiles}/zsh/zaw/zaw.zsh"
 source "${dotfiles}/zsh/aliases.zsh"
 
 if [[ "${ZSH_THEME}" == "" ]]; then
