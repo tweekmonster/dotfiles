@@ -10,7 +10,6 @@ ZSH="${dotfiles}/zsh/oh-my-zsh"
 ZSH_THEME=""
 plugins=(
     catimg
-    colored-man
     pip
     python
     sudo

@@ -20,7 +20,6 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'jez/vim-superman'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 
 call vundle#end()
@@ -167,7 +166,7 @@ augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
     autocmd FileType python setlocal completeopt-=preview
-    autocmd FileType man setlocal nomodified nomodifiable nolist number
+    autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
     autocmd FileType xml setlocal foldlevelstart=2
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
     autocmd BufEnter *.cls setlocal filetype=java
