@@ -1,5 +1,5 @@
 setopt complete_aliases
-
+alias sudo='nocorrect sudo '
 alias ls='ls --color=tty -F'
 
 alias svim='sudo -s vim'

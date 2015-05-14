@@ -1,6 +1,7 @@
 # zmodload zsh/zprof
 # oh-my-zsh covers the other history related options
 setopt hist_ignore_all_dups
+setopt correct
 
 dotfiles=$(dirname "${${(%):-%N}:A}")
 fpath=("${dotfiles}/zsh/zsh-completions/src" $fpath)
