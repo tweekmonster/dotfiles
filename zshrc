@@ -5,8 +5,6 @@ setopt hist_ignore_all_dups
 dotfiles=$(dirname "${${(%):-%N}:A}")
 fpath=("${dotfiles}/zsh/zsh-completions/src" $fpath)
 
-source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
 # Begin loading oh-my-zsh
 ZSH="${dotfiles}/zsh/oh-my-zsh"
 ZSH_THEME=""
@@ -42,4 +40,5 @@ if [[ $OSTYPE =~ "darwin" ]]; then
     source "${dotfiles}/zsh/osx.zsh"
 fi
 
+source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # zprof
