@@ -77,18 +77,29 @@ function history-search-end() {
 }
 
 function toggle-sudo() {
-    # This cycles prefixing the buffer with sudo and sudo -s
-    if [[ ${BUFFER:0:5} == "sudo " ]]; then
-        if [[ ${BUFFER:0:8} == "sudo -s " ]]; then
-            (( CURSOR-=8 ))
-            BUFFER="${BUFFER:8:${#BUFFER}-8}"
-        else
-            BUFFER="sudo -s ${BUFFER:5:${#BUFFER}-5}"
-            (( CURSOR+=3 ))
-        fi
+    local last_cmd="$(fc -l -n -1)"
+
+    if [[ $BUFFER == $last_cmd ]]; then
+        BUFFER=""
     else
-        BUFFER="sudo ${BUFFER}"
-        (( CURSOR+=5 ))
+        if [[ -z $BUFFER ]]; then
+            BUFFER=$last_cmd
+            CURSOR=${#BUFFER}
+        fi
+
+        # This cycles prefixing the buffer with sudo and sudo -s
+        if [[ ${BUFFER:0:5} == "sudo " ]]; then
+            if [[ ${BUFFER:0:8} == "sudo -s " ]]; then
+                (( CURSOR-=8 ))
+                BUFFER="${BUFFER:8:${#BUFFER}-8}"
+            else
+                BUFFER="sudo -s ${BUFFER:5:${#BUFFER}-5}"
+                (( CURSOR+=3 ))
+            fi
+        else
+            BUFFER="sudo ${BUFFER}"
+            (( CURSOR+=5 ))
+        fi
     fi
 
     if typeset -f _zsh_highlight > /dev/null; then
@@ -96,22 +107,14 @@ function toggle-sudo() {
     fi
 }
 
-function zle-line-init zle-keymap-select() {
-    if [[ $WIDGET == "zle-line-init" ]]; then
-        echoti smkx
-    fi
-
+function reset-prompt() {
     # So prompt can be updated with vi-mode state
     zle .reset-prompt
 }
 
-function zle-line-finish() {
-    echoti rmkx
-}
-
 zle -N toggle-sudo
-zle -N zle-line-init
-zle -N zle-line-finish
-zle -N zle-keymap-select
+zle -N zle-line-init reset-prompt
+zle -N zle-keymap-select reset-prompt
+
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
