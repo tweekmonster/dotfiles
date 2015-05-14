@@ -8,6 +8,7 @@ fi
 
 PATH="$HOME/bin:$HOME/node_modules/.bin:$PATH"
 export PATH
+export EDITOR=vim
 
 virtualenvwrapper=$(which virtualenvwrapper_lazy.sh)
 if [[ -e "${virtualenvwrapper}" ]]; then
