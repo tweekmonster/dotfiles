@@ -15,8 +15,8 @@ Bundle 'sjl/gundo.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-sleuth'
 Bundle 'tomtom/tcomment_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'airblade/vim-gitgutter'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler.vim'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
@@ -27,6 +27,7 @@ call vundle#end()
 
 " GUI {{{
 set guifont=Source\ Code\ Pro\ for\ Powerline:h11
+set guioptions=gm
 " }}}
 
 " Misc {{{
@@ -99,10 +100,18 @@ endtry
 highlight AnalWhiteSpaces term=bold ctermfg=239 guifg=#585858
 augroup AnalWhiteSpacesHighlight
     autocmd!
-    autocmd VimEnter * match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
+    autocmd BufEnter * match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
     autocmd InsertLeave * match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
 augroup END
 " }}}
+
+" Annoying {{{
+augroup Annoying
+    autocmd!
+    " Stop screen flashing
+    autocmd VimEnter * set visualbell t_vb=
+    autocmd GUIEnter * set visualbell t_vb=
+augroup END
 
 " Key Bindings {{{
 let mapleader=","
@@ -125,9 +134,15 @@ nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>a :Ag
 " "}}}
 
-" NERDTree {{{
-let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'docs']
+" VimFiler {{{
+nnoremap <leader>n :VimFilerExplorer<CR>
+let g:vimfiler_as_default_explorer = 1
 " }}}
+
+" " NERDTree {{{
+" nnoremap <leader>n :NERDTreeToggle<CR>
+" let NERDTreeIgnore = ['\.pyc$', 'build', 'venv', 'egg', 'egg-info/', 'dist', 'docs']
+" " }}}
 
 " Airline {{{
 let g:airline#extensions#tabline#enabled = 1
