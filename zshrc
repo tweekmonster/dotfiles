@@ -17,6 +17,7 @@ plugins=(
     supervisor
     systemadmin
     tmux
+    pyenv
 )
 
 if [[ -e "${HOME}/.zshrc_local" ]]; then
