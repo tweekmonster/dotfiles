@@ -20,15 +20,15 @@ plugins=(
     pyenv
 )
 
-if [[ -e "${HOME}/.zshrc_local" ]]; then
-    # Let a local .zshrc override
-    source "${HOME}/.zshrc_local"
-fi
-
 source "${ZSH}/oh-my-zsh.sh"
 
 source "${dotfiles}/zsh/zaw/zaw.zsh"
 source "${dotfiles}/zsh/aliases.zsh"
+
+if [[ -e "${HOME}/.zshrc_local" ]]; then
+    # Let a local .zshrc override
+    source "${HOME}/.zshrc_local"
+fi
 
 if [[ "${ZSH_THEME}" == "" ]]; then
     # Stick to my tried and true if a theme wasn't set
