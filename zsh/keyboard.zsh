@@ -1,20 +1,6 @@
 # http://dougblack.io/words/zsh-vi-mode.html
 export KEYTIMEOUT=1
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>/'
-typeset -A key
-
-key[home]=${terminfo[khome]}
-key[end]=${terminfo[kend]}
-key[ins]=${terminfo[kich1]}
-key[del]=${terminfo[kdch1]}
-key[up]=${terminfo[kcuu1]}
-key[down]=${terminfo[kcud1]}
-key[left]=${terminfo[kcub1]}
-key[right]=${terminfo[kcuf1]}
-key[pgup]=${terminfo[kpp]}
-key[pgdn]=${terminfo[knp]}
-key[bs]=${terminfo[kbs]}
-key[tab]=${terminfo[ht]}
 
 bindkey -v
 
@@ -28,12 +14,12 @@ bindkey -M vicmd '\e' vi-add-eol
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^?' backward-delete-char
-bindkey "${key[bs]}" backward-delete-char
+bindkey "\e?" backward-delete-char
 bindkey '^w' backward-kill-word
-bindkey "${key[del]}" delete-char
+bindkey "\e[3~" delete-char
 
-bindkey "${key[up]}" history-beginning-search-backward-end
-bindkey "${key[down]}" history-beginning-search-forward-end
+bindkey "\e[A" history-beginning-search-backward-end
+bindkey "\e[B" history-beginning-search-forward-end
 
 bindkey -M viins "\eb" backward-word
 bindkey -M viins "\ef" forward-word
