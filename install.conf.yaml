@@ -41,3 +41,4 @@
     - git submodule update --init --recursive
     - rm -f ~/.zcompdump*
     - vim +PluginInstall +qall > /dev/null
+    - mkdir -p ~/.vim/undo

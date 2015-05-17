@@ -18,13 +18,17 @@ bindkey "\e?" backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey "\e[3~" delete-char
 
-bindkey "\e[A" history-beginning-search-backward-end
-bindkey "\e[B" history-beginning-search-forward-end
+# Note these are actual escape (0o033) characters
+# These depend on the OS X Terminal key bindings
+# found in the theme file
+# Mapping taken from: http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
+bindkey '[A' history-beginning-search-backward-end
+bindkey '[B' history-beginning-search-forward-end
 
-bindkey -M viins "\eb" backward-word
-bindkey -M viins "\ef" forward-word
-bindkey -M vicmd "\eb" vi-backward-blank-word
-bindkey -M vicmd "\ef" vi-forward-blank-word
+bindkey -M viins '[1;3D' backward-word
+bindkey -M viins '[1;3C' forward-word
+bindkey -M vicmd '[1;3D' vi-backward-blank-word
+bindkey -M vicmd '[1;3C' vi-forward-blank-word
 
 # Zaw
 bindkey '^R' zaw-history
