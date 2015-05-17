@@ -53,8 +53,6 @@ set lazyredraw
 set showmatch
 set splitbelow
 set splitright
-
-let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 " }}}
 
 " Spacing {{{
@@ -329,5 +327,10 @@ endfunction
 " catch
 " endtry
 "}}}
+
+let s:vimrc_local = expand("$HOME/.vimrc_local")
+if filereadable(s:vimrc_local)
+    exec "source " . s:vimrc_local
+endif
 
 " vim:foldmethod=marker:foldlevel=0
