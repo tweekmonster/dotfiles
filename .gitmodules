@@ -19,3 +19,6 @@
 [submodule "zsh/zaw"]
 	path = zsh/zaw
 	url = https://github.com/zsh-users/zaw.git
+[submodule "zsh/zsh-duckduckgo"]
+	path = zsh/zsh-duckduckgo
+	url = https://github.com/tweekmonster/zsh-duckduckgo.git
