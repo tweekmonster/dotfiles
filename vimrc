@@ -27,6 +27,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'groenewege/vim-less'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Bundle 'majutsushi/tagbar'
 Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
@@ -83,8 +84,8 @@ set foldmethod=indent
 " }}}
 
 " Whitespace {{{
-set nolist
-set listchars=
+" set nolist
+" set listchars=
 " }}}
 
 " Backup Files {{{
@@ -107,6 +108,12 @@ try
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
+setglobal listchars=tab:▸\ ,eol:¬
+try
+    setglobal listchars+=space:.
+catch
+endtry
+
 " Make sure whitespace characters remain muted even on CursorLine
 highlight AnalWhiteSpaces term=bold ctermfg=239 guifg=#585858
 augroup AnalWhiteSpacesHighlight
@@ -117,18 +124,11 @@ augroup AnalWhiteSpacesHighlight
 augroup END
 
 function! <SID>AnalWhiteSpaceTrigger()
-    if &ft != '' && &ft !~? '^qf|vimfiler\|unite\|help\|man\|gitcommit\>'
-        set listchars=tab:▸\ ,eol:¬
-        try
-            set listchars+=space:.
-        catch
-        endtry
-
-        set list
+    if &ft != '' && &ft !~? '^qf\|tagbar\|vimfiler\|unite\|help\|man\|gitcommit\>'
+        setlocal list
         match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
     else
-        set nolist
-        set listchars=
+        setlocal nolist
         match none
     endif
 endfunction
@@ -180,9 +180,6 @@ inoremap jk <esc>
 
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
-
-" open ag.vim
-nnoremap <leader>a :Ag
 
 nnoremap <silent> <leader>sws :call <SID>StripTrailingWhitespaces()<CR>
 " "}}}
@@ -253,18 +250,25 @@ let g:jedi#usages_command = "<leader>pu"
 let g:jedi#rename_command = "<leader>pr"
 " }}}
 
+" Tagbar {{{
+nnoremap <leader>t :TagbarToggle<CR>
+" }}}
+
 " Silver Searcher {{{
 if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --vimgrep\ -w\ $*
 
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    if executable('agtrunc')
+        set grepprg+=\ \\\|\ agtrunc
+    endif
+
+    set grepformat=%f:%l:%c:%m
+    command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
+    nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
+
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-    " ag is fast enough that CtrlP doesn't need to cache
     let g:ctrlp_use_caching = 0
 endif
-nnoremap <silent> K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " }}}
 
 " File Type Auto Groups {{{
@@ -284,6 +288,8 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
+    " Force quickfix to the bottom
+    autocmd FileType qf wincmd J
 augroup END
 " }}}
 
