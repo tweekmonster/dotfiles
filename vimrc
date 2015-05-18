@@ -53,6 +53,7 @@ set lazyredraw
 set showmatch
 set splitbelow
 set splitright
+set nowrap
 " }}}
 
 " Spacing {{{
