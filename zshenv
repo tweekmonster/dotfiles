@@ -6,7 +6,7 @@ if [[ $OSTYPE =~ "linux" ]]; then
     export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
-PATH="$HOME/bin:$HOME/node_modules/.bin:$PATH"
+PATH="$HOME/bin:$HOME/.npm/bin:$PATH"
 export PATH
 export EDITOR=vim
 

@@ -36,6 +36,9 @@
     ~/.tmux.conf:
         relink: true
         path: tmux.conf
+    ~/.npmrc:
+        relink: true
+        path: npmrc
 
 - shell:
     -
