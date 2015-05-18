@@ -38,7 +38,11 @@
         path: tmux.conf
 
 - shell:
-    - git submodule update --init --recursive
+    -
+     command: git submodule update --init --recursive
+     stdout: true
     - rm -f ~/.zcompdump*
-    - vim +PluginInstall +qall > /dev/null
     - mkdir -p ~/.vim/undo
+    -
+     command: ./post_install
+     stdout: true

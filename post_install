@@ -1,0 +1,36 @@
+#!/bin/bash
+
+ycm_hash=""
+ycm_path="${HOME}/.vim/bundle/YouCompleteMe"
+
+if [[ -d "${ycm_path}" ]]; then
+    ycm_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
+fi
+
+vim +PluginInstall +qall > /dev/null
+
+ycm_c_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
+
+if [[ "${ycm_hash}" == "${ycm_c_hash}" ]]; then
+    exit 0
+fi
+
+penv=$(which pyenv)
+if [[ -n $penv ]]; then
+    eval "$(pyenv init -)"
+    pyenv shell system
+fi
+
+# Take over the YCM build since it can't figure out pyenv
+# When ran alone, post_install does fine if `pyenv shell system` is set
+# but when ran with dotbot, it seems the environment is lost and YCM ends up
+# finding the wrong python version
+cd ~/.vim/bundle/YouCompleteMe
+py=$(which python)
+build_file="${ycm_path}/third_party/ycmd/build.py"
+
+$py "${build_file}"
+
+rm -f python/*ycm_core.* &> /dev/null
+rm -f python/*ycm_client_support.* &> /dev/null
+rm -f python/*clang*.* &> /dev/null
