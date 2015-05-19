@@ -21,13 +21,15 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'davidhalter/jedi-vim'
+" Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'groenewege/vim-less'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Bundle 'majutsushi/tagbar'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
@@ -55,6 +57,7 @@ set showmatch
 set splitbelow
 set splitright
 set nowrap
+set colorcolumn=80
 " }}}
 
 " Spacing {{{
@@ -220,6 +223,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" We're all grown ups here, flake8. I'll decide how long is too long okay.
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 " }}}
 
 " CtrlP settings {{{
@@ -236,18 +243,18 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }}}
 
 " Jedi {{{
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-let g:jedi#completions_enabled = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-
-let g:jedi#goto_assignments_command = "<leader>pa"
-let g:jedi#goto_definitions_command = "<leader>pd"
-let g:jedi#documentation_command = "<leader>pk"
-let g:jedi#usages_command = "<leader>pu"
-let g:jedi#rename_command = "<leader>pr"
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#popup_on_dot = 0
+" let g:jedi#popup_select_first = 0
+" let g:jedi#completions_enabled = 0
+" let g:jedi#completions_command = ""
+" let g:jedi#show_call_signatures = "1"
+"
+" let g:jedi#goto_assignments_command = "<leader>pa"
+" let g:jedi#goto_definitions_command = "<leader>pd"
+" let g:jedi#documentation_command = "<leader>pk"
+" let g:jedi#usages_command = "<leader>pu"
+" let g:jedi#rename_command = "<leader>pr"
 " }}}
 
 " Tagbar {{{
@@ -271,12 +278,16 @@ if executable('ag')
 endif
 " }}}
 
+" GitGutter {{{
+let g:gitgutter_sign_column_always = 1
+" }}}
+
 " File Type Auto Groups {{{
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
     autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
-    autocmd FileType python setlocal completeopt-=preview
+    autocmd FileType python setlocal completeopt-=preview textwidth=79
     autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
     autocmd FileType xml setlocal foldlevelstart=2
     " autocmd BufEnter * :call <SID>FTSetup()
