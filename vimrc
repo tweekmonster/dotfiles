@@ -30,6 +30,9 @@ Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Raimondi/delimitMate'
 Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
@@ -46,6 +49,7 @@ filetype plugin indent on
 
 let xml_syntax_folding=1
 
+set background=dark
 set ttyfast
 set modelines=1
 set number
@@ -226,7 +230,7 @@ let g:syntastic_check_on_wq = 0
 
 " We're all grown ups here, flake8. I'll decide how long is too long okay.
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_flake8_args='--ignore=E501,E226'
 " }}}
 
 " CtrlP settings {{{
@@ -239,6 +243,7 @@ let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 " YCM {{{
 " let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion=1
+
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }}}
 
@@ -300,7 +305,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
     " Force quickfix to the bottom
-    autocmd FileType qf wincmd J
+    " autocmd FileType qf wincmd J | call AdjustWindowHeight(3, 10)
 augroup END
 " }}}
 
@@ -325,6 +330,10 @@ function! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     let @/=_s
     call cursor(l, c)
+endfunction
+
+function! AdjustWindowHeight(minheight, maxheight)
+    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
 " function! <SID>FTSetup()
