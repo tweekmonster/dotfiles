@@ -1,18 +1,20 @@
 #!/bin/bash
-
-ycm_hash=""
 ycm_path="${HOME}/.vim/bundle/YouCompleteMe"
 
-if [[ -d "${ycm_path}" ]]; then
-    ycm_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
-fi
+if [[ "${1}" != "force" ]]; then
+    ycm_hash=""
 
-vim +PluginInstall +qall > /dev/null
+    if [[ -d "${ycm_path}" ]]; then
+        ycm_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
+    fi
 
-ycm_c_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
+    vim +PluginInstall +qall > /dev/null
 
-if [[ "${ycm_hash}" == "${ycm_c_hash}" ]]; then
-    exit 0
+    ycm_c_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
+
+    if [[ "${ycm_hash}" == "${ycm_c_hash}" ]]; then
+        exit 0
+    fi
 fi
 
 penv=$(which pyenv)
