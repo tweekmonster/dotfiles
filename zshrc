@@ -5,6 +5,8 @@ setopt correct
 
 dotfiles=$(dirname "${${(%):-%N}:A}")
 fpath=("${dotfiles}/zsh/zsh-completions/src" $fpath)
+BASE16_SHELL="${dotfiles}/misc/base16-shell/base16-tomorrow.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # Begin loading oh-my-zsh
 ZSH="${dotfiles}/zsh/oh-my-zsh"

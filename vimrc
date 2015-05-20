@@ -9,7 +9,7 @@ filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
+Bundle 'chriskempson/base16-vim'
 Bundle 'gmarik/Vundle.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'kien/ctrlp.vim'
@@ -26,7 +26,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'groenewege/vim-less'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+" Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'hynek/vim-python-pep8-indent'
@@ -39,7 +39,7 @@ call vundle#end()
 " }}}
 
 " GUI {{{
-set guifont=Source\ Code\ Pro\ for\ Powerline:h11
+" set guifont=Source\ Code\ Pro\ for\ Powerline:h11
 set guioptions=gm
 " }}}
 
@@ -53,6 +53,7 @@ set background=dark
 set ttyfast
 set modelines=1
 set number
+set relativenumber
 set showcmd
 set cursorline
 set wildmenu
@@ -109,11 +110,15 @@ set undodir=~/.vim/undo
 " }}}
 
 " Theme {{{
+let base16colorspace=256
 try
     " Ignore the theme doesn't exist for dotfiles installation
-    colorscheme Tomorrow-Night
+    colorscheme base16-tomorrow
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
+
+highlight Search term=reverse ctermfg=18 ctermbg=3 guifg=#969896 guibg=#f0c674
+highlight CursorLineNr term=bold ctermfg=3 ctermbg=18 gui=bold guifg=#969896 guibg=#282a2e
 
 setglobal listchars=tab:▸\ ,eol:¬
 try
@@ -122,7 +127,7 @@ catch
 endtry
 
 " Make sure whitespace characters remain muted even on CursorLine
-highlight AnalWhiteSpaces term=bold ctermfg=239 guifg=#585858
+highlight AnalWhiteSpaces term=bold ctermfg=19 guifg=#585858
 augroup AnalWhiteSpacesHighlight
     autocmd!
     autocmd BufEnter * :call <SID>AnalWhiteSpaceTrigger()
@@ -153,9 +158,6 @@ augroup END
 " Key Bindings {{{
 let mapleader=","
 
-" As mentioned in zsh/keyboard.zsh, this depends on key mappings
-" from the OS X Terminal theme. I will cry a river if I have
-" to use vim through PuTTY.
 " Meta key navigates splits
 nnoremap j <C-W><C-J>
 nnoremap k <C-W><C-K>
@@ -163,16 +165,16 @@ nnoremap l <C-W><C-L>
 nnoremap h <C-W><C-H>
 
 " Meta+arrows resizes splits
-nnoremap [1;3A :resize +1<CR>
-nnoremap [1;3B :resize -1<CR>
-nnoremap [1;3D :vertical:resize +1<CR>
-nnoremap [1;3C :vertical:resize -1<CR>
+nnoremap [1;9A :resize +1<CR>
+nnoremap [1;9B :resize -1<CR>
+nnoremap [1;9D :vertical:resize +1<CR>
+nnoremap [1;9C :vertical:resize -1<CR>
 
 " Meta+shift+arrows resizes by 5
-nnoremap [1;4A :resize +5<CR>
-nnoremap [1;4B :resize -5<CR>
-nnoremap [1;4D :vertical:resize +5<CR>
-nnoremap [1;4C :vertical:resize -5<CR>
+nnoremap [1;10A :resize +5<CR>
+nnoremap [1;10B :resize -5<CR>
+nnoremap [1;10D :vertical:resize +5<CR>
+nnoremap [1;10C :vertical:resize -5<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -202,19 +204,21 @@ let g:vimfiler_as_default_explorer = 1
 " " }}}
 
 " Airline {{{
+let g:airline_theme = 'base16_tomorrow'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#show_tab_type = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" " let g:airline#extensions#tmuxline#enabled = 0
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
+
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = '┃'
+let g:airline#extensions#tmuxline#enabled = 0
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '┃'
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = '┃'
 set laststatus=2
 " }}}
 

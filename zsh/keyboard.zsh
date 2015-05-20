@@ -19,16 +19,14 @@ bindkey '^w' backward-kill-word
 bindkey "\e[3~" delete-char
 
 # Note these are actual escape (0o033) characters
-# These depend on the OS X Terminal key bindings
-# found in the theme file
-# Mapping taken from: http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
+# Using iTerm2 with Esc+ and xterm defaults
 bindkey '[A' history-beginning-search-backward-end
 bindkey '[B' history-beginning-search-forward-end
 
-bindkey -M viins '[1;3D' backward-word
-bindkey -M viins '[1;3C' forward-word
-bindkey -M vicmd '[1;3D' vi-backward-blank-word
-bindkey -M vicmd '[1;3C' vi-forward-blank-word
+bindkey -M viins '[1;9D' backward-word
+bindkey -M viins '[1;9C' forward-word
+bindkey -M vicmd '[1;9D' vi-backward-blank-word
+bindkey -M vicmd '[1;9C' vi-forward-blank-word
 
 # Zaw
 bindkey '^R' zaw-history

@@ -22,3 +22,6 @@
 [submodule "zsh/zsh-duckduckgo"]
 	path = zsh/zsh-duckduckgo
 	url = https://github.com/tweekmonster/zsh-duckduckgo.git
+[submodule "misc/base16-shell"]
+	path = misc/base16-shell
+	url = https://github.com/chriskempson/base16-shell.git

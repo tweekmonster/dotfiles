@@ -33,6 +33,10 @@
         relink: true
         create: true
         path: misc/vim_after
+    ~/.vim/autoload:
+        relink: true
+        create: true
+        path: misc/vim_autoload
     ~/.tmux.conf:
         relink: true
         path: tmux.conf
