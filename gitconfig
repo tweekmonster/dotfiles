@@ -3,3 +3,10 @@
 
 [include]
     path = ~/.gitconfig_local
+[push]
+	default = simple
+[user]
+	name = Tommy Allen
+	email = tommy@esdf.io
+[github]
+	user = tweekmonster
