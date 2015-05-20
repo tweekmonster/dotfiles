@@ -33,6 +33,9 @@ Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'Raimondi/delimitMate'
+Bundle 'ervandew/supertab'
+Bundle 'honza/vim-snippets'
+Bundle 'SirVer/ultisnips'
 Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
@@ -127,6 +130,7 @@ catch
 endtry
 
 " Make sure whitespace characters remain muted even on CursorLine
+" Refactor this later
 highlight AnalWhiteSpaces term=bold ctermfg=19 guifg=#585858
 augroup AnalWhiteSpacesHighlight
     autocmd!
@@ -247,8 +251,16 @@ let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 " YCM {{{
 " let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion=1
-
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-j>'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" }}}
+
+" Ultisnips {{{
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}}
 
 " Jedi {{{
