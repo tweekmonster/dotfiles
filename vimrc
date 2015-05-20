@@ -23,6 +23,7 @@ Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
 " Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'gregsexton/gitv'
 Bundle 'tpope/vim-surround'
 Bundle 'groenewege/vim-less'
 Bundle 'terryma/vim-multiple-cursors'
@@ -141,7 +142,7 @@ augroup AnalWhiteSpacesHighlight
 augroup END
 
 function! <SID>AnalWhiteSpaceTrigger()
-    if &ft != '' && &ft !~? '^qf\|tagbar\|vimfiler\|unite\|help\|man\|gitcommit\>'
+    if &ft != '' && &ft !~? '^qf\|gitv\|tagbar\|vimfiler\|unite\|help\|man\|gitcommit\>'
         setlocal list
         match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
     else
