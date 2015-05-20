@@ -52,6 +52,7 @@ filetype plugin indent on
 
 let xml_syntax_folding=1
 
+set mouse=a
 set background=dark
 set ttyfast
 set modelines=1
