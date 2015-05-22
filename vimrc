@@ -1,6 +1,10 @@
 scriptencoding utf-8
 set encoding=utf-8
 
+if has('nvim')
+    set clipboard+=unnamed
+endif
+
 " Parts are from Doug Black's vimrc
 
 " Vundle {{{
@@ -32,11 +36,14 @@ Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'nathanaelkane/vim-indent-guides'
+" Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'Raimondi/delimitMate'
 Bundle 'ervandew/supertab'
 Bundle 'honza/vim-snippets'
 Bundle 'SirVer/ultisnips'
+Bundle 'mtth/scratch.vim'
+Bundle 'Yggdroot/indentLine'
+Bundle 'mattn/emmet-vim'
 Bundle 'Valloric/YouCompleteMe'
 
 call vundle#end()
@@ -54,6 +61,11 @@ filetype plugin indent on
 let xml_syntax_folding=1
 
 set mouse=a
+
+if &term =~ '^screen'
+    set ttymouse=xterm2
+endif
+
 set background=dark
 set ttyfast
 set modelines=1
@@ -68,6 +80,8 @@ set splitbelow
 set splitright
 set nowrap
 set colorcolumn=80
+set hidden
+set scrolloff=5
 " }}}
 
 " Spacing {{{
@@ -107,6 +121,8 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
+" http://vimdoc.sourceforge.net/htmldoc/options.html#'viminfo'
+set viminfo='100,<50,:20,n~/.vim/viminfo
 " }}}
 
 " Persistent Undo {{{
@@ -118,41 +134,49 @@ set undodir=~/.vim/undo
 let base16colorspace=256
 try
     " Ignore the theme doesn't exist for dotfiles installation
-    colorscheme base16-tomorrow
+    colorscheme base16-tomorrow-custom
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
-highlight Search term=reverse ctermfg=18 ctermbg=3 guifg=#969896 guibg=#f0c674
-highlight CursorLineNr term=bold ctermfg=3 ctermbg=18 gui=bold guifg=#969896 guibg=#282a2e
 
-setglobal listchars=tab:▸\ ,eol:¬
-try
-    setglobal listchars+=space:.
-catch
-endtry
+setglobal listchars=tab:▸\ ,eol:¬,trail:□
+" try
+"     setglobal listchars+=space:.
+" catch
+" endtry
 
-" Make sure whitespace characters remain muted even on CursorLine
-" Refactor this later
-highlight AnalWhiteSpaces term=bold ctermfg=19 guifg=#585858
-augroup AnalWhiteSpacesHighlight
-    autocmd!
-    autocmd BufEnter * :call <SID>AnalWhiteSpaceTrigger()
-    autocmd WinEnter * :call <SID>AnalWhiteSpaceTrigger()
-    autocmd InsertLeave * :call <SID>AnalWhiteSpaceTrigger()
-augroup END
+let g:indentLine_leadingSpaceChar = '∙'
+let g:indentLine_char = '│'
+let g:indentLine_first_char = '│'
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki']
 
-function! <SID>AnalWhiteSpaceTrigger()
-    if &ft != '' && &ft !~? '^qf\|gitv\|tagbar\|vimfiler\|unite\|help\|man\|gitcommit\>'
-        setlocal list
-        match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
-    else
-        setlocal nolist
-        match none
-    endif
-endfunction
+"
+" " Make sure whitespace characters remain muted even on CursorLine
+" " Refactor this later
+" highlight AnalWhiteSpaces term=bold ctermfg=19 guifg=#585858
+" augroup AnalWhiteSpacesHighlight
+"     autocmd!
+"     autocmd BufEnter * :call <SID>AnalWhiteSpaceTrigger()
+"     autocmd WinEnter * :call <SID>AnalWhiteSpaceTrigger()
+"     autocmd InsertLeave * :call <SID>AnalWhiteSpaceTrigger()
+" augroup END
+"
+" function! <SID>AnalWhiteSpaceTrigger()
+"     if &ft != '' && &ft !~? '^qf\|gitv\|tagbar\|vimfiler\|unite\|help\|man\|gitcommit\>'
+"         setlocal list
+"         match AnalWhiteSpaces /[\t\n\x0b\x0c\r ]\+/
+"     else
+"         setlocal nolist
+"         match none
+"     endif
+" endfunction
 " }}}
 
 " Annoying {{{
+let g:multi_cursor_exit_from_insert_mode = 0
+
 augroup Annoying
     autocmd!
     " Stop screen flashing
@@ -161,26 +185,48 @@ augroup Annoying
 augroup END
 " }}}
 
-" Key Bindings {{{
+" key bindings {{{
 let mapleader=","
 
-" Meta key navigates splits
-nnoremap j <C-W><C-J>
-nnoremap k <C-W><C-K>
-nnoremap l <C-W><C-L>
-nnoremap h <C-W><C-H>
+if has('nvim')
+    " meta key navigates splits
+    nnoremap <m-j> <c-w><c-j>
+    nnoremap <m-k> <c-w><c-k>
+    nnoremap <m-l> <c-w><c-l>
+    nnoremap <m-h> <c-w><c-h>
 
-" Meta+arrows resizes splits
-nnoremap [1;9A :resize +1<CR>
-nnoremap [1;9B :resize -1<CR>
-nnoremap [1;9D :vertical:resize +1<CR>
-nnoremap [1;9C :vertical:resize -1<CR>
+    " meta+arrows resizes splits
+    nnoremap <m-up> :resize +1<cr>
+    nnoremap <m-down> :resize -1<cr>
+    nnoremap <m-right> :vertical:resize +1<cr>
+    nnoremap <m-left> :vertical:resize -1<cr>
 
-" Meta+shift+arrows resizes by 5
-nnoremap [1;10A :resize +5<CR>
-nnoremap [1;10B :resize -5<CR>
-nnoremap [1;10D :vertical:resize +5<CR>
-nnoremap [1;10C :vertical:resize -5<CR>
+    " meta+shift+arrows resizes by 5
+    nnoremap <m-s-up> :resize +5<cr>
+    nnoremap <m-s-down> :resize -5<cr>
+    nnoremap <m-s-right> :vertical:resize +5<cr>
+    nnoremap <m-s-left> :vertical:resize -5<cr>
+else
+    " Meta key navigates splits
+    nnoremap j <C-W><C-J>
+    nnoremap k <C-W><C-K>
+    nnoremap l <C-W><C-L>
+    nnoremap h <C-W><C-H>
+    
+    " Meta+arrows resizes splits
+    nnoremap [1;9A :resize +1<CR>
+    nnoremap [1;9B :resize -1<CR>
+    nnoremap [1;9D :vertical:resize +1<CR>
+    nnoremap [1;9C :vertical:resize -1<CR>
+
+    " Meta+shift+arrows resizes by 5
+    nnoremap [1;10A :resize +5<CR>
+    nnoremap [1;10B :resize -5<CR>
+    nnoremap [1;10D :vertical:resize +5<CR>
+    nnoremap [1;10C :vertical:resize -5<CR>
+endif
+
+
 
 nnoremap j gj
 nnoremap k gk
@@ -197,11 +243,20 @@ inoremap jk <esc>
 nnoremap <leader>u :GundoToggle<CR>
 
 nnoremap <silent> <leader>sws :call <SID>StripTrailingWhitespaces()<CR>
+
+nnoremap <c-b> :CtrlPBuffer<cr>
+nnoremap <c-m> :CtrlPMRU<cr>
 " "}}}
 
 " VimFiler {{{
-nnoremap <silent> <leader>n :VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -quit<CR>
+nnoremap <silent> <leader>n :VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 let g:vimfiler_as_default_explorer = 1
+call vimfiler#custom#profile('default', 'context', {})
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
 " }}}
 
 " " NERDTree {{{
@@ -220,11 +275,19 @@ let g:airline#extensions#tabline#show_tab_type = 1
 
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '┃'
-let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 1
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '┃'
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = '┃'
+
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '┃',
+    \ 'right' : '',
+    \ 'right_alt' : '┃',
+    \ 'space' : ' '}
+
 set laststatus=2
 " }}}
 
@@ -253,6 +316,8 @@ let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 " YCM {{{
 " let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-j>'

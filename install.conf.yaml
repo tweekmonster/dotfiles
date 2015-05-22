@@ -37,6 +37,10 @@
         relink: true
         create: true
         path: misc/vim_autoload
+    ~/.vim/colors:
+        relink: true
+        create: true
+        path: misc/vim_colors
     ~/.tmux.conf:
         relink: true
         path: tmux.conf
@@ -49,7 +53,6 @@
      command: git submodule update --init --recursive
      stdout: true
     - rm -f ~/.zcompdump*
-    - mkdir -p ~/.vim/undo
     -
      command: ./post_install
      stdout: true
