@@ -23,7 +23,7 @@ Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimfiler.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'bling/vim-airline'
-Bundle 'edkolev/tmuxline.vim'
+" Bundle 'edkolev/tmuxline.vim'
 Bundle 'scrooloose/syntastic'
 " Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
@@ -206,6 +206,8 @@ if has('nvim')
     nnoremap <m-s-down> :resize -5<cr>
     nnoremap <m-s-right> :vertical:resize +5<cr>
     nnoremap <m-s-left> :vertical:resize -5<cr>
+
+    tnoremap jk <C-\><C-n>
 else
     " Meta key navigates splits
     nnoremap j <C-W><C-J>
@@ -243,9 +245,10 @@ inoremap jk <esc>
 nnoremap <leader>u :GundoToggle<CR>
 
 nnoremap <silent> <leader>sws :call <SID>StripTrailingWhitespaces()<CR>
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
 nnoremap <c-b> :CtrlPBuffer<cr>
-nnoremap <c-m> :CtrlPMRU<cr>
+nnoremap <c-c> :CtrlPMRU<cr>
 " "}}}
 
 " VimFiler {{{
@@ -275,18 +278,18 @@ let g:airline#extensions#tabline#show_tab_type = 1
 
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '┃'
-let g:airline#extensions#tmuxline#enabled = 1
+" let g:airline#extensions#tmuxline#enabled = 1
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '┃'
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = '┃'
-
-let g:tmuxline_separators = {
-    \ 'left' : '',
-    \ 'left_alt': '┃',
-    \ 'right' : '',
-    \ 'right_alt' : '┃',
-    \ 'space' : ' '}
+"
+" let g:tmuxline_separators = {
+"     \ 'left' : '',
+"     \ 'left_alt': '┃',
+"     \ 'right' : '',
+"     \ 'right_alt' : '┃',
+"     \ 'space' : ' '}
 
 set laststatus=2
 " }}}
@@ -346,7 +349,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 " }}}
 
 " Tagbar {{{
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>t :TagbarOpen fj<cr>
 " }}}
 
 " Silver Searcher {{{
