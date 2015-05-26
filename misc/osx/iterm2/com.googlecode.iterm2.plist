@@ -5,7 +5,7 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<true/>
 	<key>AllowClipboardAccess</key>
-	<false/>
+	<true/>
 	<key>AnimateDimming</key>
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -636,13 +636,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1457 235 825 226 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>1505 581 924 485 0 0 2560 1417 </string>
+	<string>180 656 924 485 0 0 2560 1417 </string>
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1241 773 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>239 255 2248 1042 0 0 2560 1417 </string>
+	<string>0 67 2560 1350 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>471 413 910 468 0 0 2560 1417 </string>
+	<string>938 421 1198 468 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1348,7 +1348,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453251133.80668199</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>453783618.09017402</real>
+	<real>454215627.924752</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1411,7 +1411,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-05-19T21:26:21Z</date>
+	<date>2015-05-24T21:26:41Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -1421,7 +1421,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowPaneTitles</key>
-	<false/>
+	<true/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
@@ -1431,7 +1431,7 @@
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
 	<key>TabViewType</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TimeBetweenBlinks</key>
@@ -1462,7 +1462,7 @@
 	<key>WindowNumber</key>
 	<true/>
 	<key>WindowStyle</key>
-	<integer>0</integer>
+	<integer>3</integer>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>

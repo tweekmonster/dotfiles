@@ -16,7 +16,7 @@ if [[ "${1}" != "force" ]]; then
         ycm_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
     fi
 
-    vim +PluginInstall +qall > /dev/null
+    vim +NeoBundleInstall +qall
 
     ycm_c_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
 
@@ -39,7 +39,7 @@ cd ~/.vim/bundle/YouCompleteMe
 py=$(which python)
 build_file="${ycm_path}/third_party/ycmd/build.py"
 
-$py "${build_file}"
+$py "${build_file}" --clang-completer --system-libclang
 
 rm -f python/*ycm_core.* &> /dev/null
 rm -f python/*ycm_client_support.* &> /dev/null

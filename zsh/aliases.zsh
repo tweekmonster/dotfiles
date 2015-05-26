@@ -16,7 +16,7 @@ alias oldman='LESS_TERMCAP_mb=$(printf "\e[1;31m") LESS_TERMCAP_md=$(printf "\e[
 
 function man() {
     # Let man check before starting vim
-    /usr/bin/man -w "$*" 1> /dev/null
+    /usr/bin/man -w $* 1> /dev/null
     if [[ $? == 0 ]]; then
         vim -c "runtime ftplugin/man.vim" -c "Man $*" +"wincmd o" -c "set nolist norelativenumber nonumber nomodifiable" -c 'nmap q :q<CR>'
     fi

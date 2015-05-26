@@ -14,10 +14,10 @@
     ~/.zshenv:
         relink: true
         path: zshenv
-    ~/.vim/bundle/Vundle.vim:
+    ~/.vim/bundle/neobundle.vim:
         relink: true
         create: true
-        path: misc/Vundle.vim/
+        path: misc/neobundle.vim/
     ~/.vimrc:
         relink: true
         path: vimrc
@@ -55,4 +55,5 @@
     - rm -f ~/.zcompdump*
     -
      command: ./post_install
+     stdin: true
      stdout: true

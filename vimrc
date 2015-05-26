@@ -1,53 +1,68 @@
+if !1 | finish | endif
+
 scriptencoding utf-8
 set encoding=utf-8
 
 if has('nvim')
-    set clipboard+=unnamed
+   set clipboard+=unnamed
 endif
+
+if has('vim_starting')
+   if &compatible
+     set nocompatible
+   endif
+
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
+
 
 " Parts are from Doug Black's vimrc
 
-" Vundle {{{
-set nocompatible
+" NeoBundle {{{
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Bundle 'chriskempson/base16-vim'
-Bundle 'gmarik/Vundle.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-sleuth'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler.vim'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'bling/vim-airline'
-" Bundle 'edkolev/tmuxline.vim'
-Bundle 'scrooloose/syntastic'
-" Bundle 'davidhalter/jedi-vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'gregsexton/gitv'
-Bundle 'tpope/vim-surround'
-Bundle 'groenewege/vim-less'
-Bundle 'terryma/vim-multiple-cursors'
-" Bundle 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Bundle 'majutsushi/tagbar'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'tpope/vim-unimpaired'
-" Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'Raimondi/delimitMate'
-Bundle 'ervandew/supertab'
-Bundle 'honza/vim-snippets'
-Bundle 'SirVer/ultisnips'
-Bundle 'mtth/scratch.vim'
-Bundle 'Yggdroot/indentLine'
-Bundle 'mattn/emmet-vim'
-Bundle 'Valloric/YouCompleteMe'
+call neobundle#begin(expand('~/.vim/bundle/'))
+let g:neobundle#install_process_timeout = 1500
 
-call vundle#end()
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'gmarik/Vundle.vim'
+NeoBundle 'simnalamburt/vim-mundo'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-sleuth'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'bling/vim-airline'
+" NeoBundle 'edkolev/tmuxline.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'hynek/vim-python-pep8-indent'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'mtth/scratch.vim'
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'rdnetto/YCM-Generator'
+NeoBundle 'Valloric/YouCompleteMe'
+
+call neobundle#end()
+
+filetype plugin indent on
+NeoBundleCheck
 " }}}
+
 
 " GUI {{{
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h11
@@ -56,7 +71,6 @@ set guioptions=gm
 
 " Misc {{{
 syntax enable
-filetype plugin indent on
 
 let xml_syntax_folding=1
 
@@ -214,7 +228,7 @@ else
     nnoremap k <C-W><C-K>
     nnoremap l <C-W><C-L>
     nnoremap h <C-W><C-H>
-    
+
     " Meta+arrows resizes splits
     nnoremap [1;9A :resize +1<CR>
     nnoremap [1;9B :resize -1<CR>
@@ -324,28 +338,18 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-j>'
+let g:SuperTabCrMapping = 0
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" The protection this is supposed to provide shouldn't be outweighed by how
+" annoying the focus stealing prompt is.
+let g:ycm_confirm_extra_conf = 0
 " }}}
 
 " Ultisnips {{{
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-" }}}
-
-" Jedi {{{
-" let g:jedi#auto_vim_configuration = 0
-" let g:jedi#popup_on_dot = 0
-" let g:jedi#popup_select_first = 0
-" let g:jedi#completions_enabled = 0
-" let g:jedi#completions_command = ""
-" let g:jedi#show_call_signatures = "1"
-"
-" let g:jedi#goto_assignments_command = "<leader>pa"
-" let g:jedi#goto_definitions_command = "<leader>pd"
-" let g:jedi#documentation_command = "<leader>pk"
-" let g:jedi#usages_command = "<leader>pu"
-" let g:jedi#rename_command = "<leader>pr"
 " }}}
 
 " Tagbar {{{
@@ -364,13 +368,32 @@ if executable('ag')
     command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
     nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_user_command = 'ag ""%s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
 endif
 " }}}
 
 " GitGutter {{{
 let g:gitgutter_sign_column_always = 1
+" }}}
+
+" Multiple Cursors {{{
+function! Multiple_cursors_before()
+   if exists('*youcompleteme#EnableCursorMovedAutocommands')
+      let g:ycm_auto_trigger = 0
+      let s:old_ycm_whitelist = g:ycm_filetype_whitelist                           
+      let g:ycm_filetype_whitelist = {}  
+      call youcompleteme#DisableCursorMovedAutocommands()
+   endif
+endfunction
+
+function! Multiple_cursors_after()
+   if exists('*youcompleteme#EnableCursorMovedAutocommands')
+      let g:ycm_auto_trigger = 1
+      let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+      call youcompleteme#EnableCursorMovedAutocommands()
+   endif
+endfunction
 " }}}
 
 " File Type Auto Groups {{{
@@ -421,6 +444,14 @@ endfunction
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
+function! AppendModeline()
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+                \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 " function! <SID>FTSetup()
 "     " Sets up the buffer for a file type
