@@ -39,7 +39,7 @@ cd ~/.vim/bundle/YouCompleteMe
 py=$(which python)
 build_file="${ycm_path}/third_party/ycmd/build.py"
 
-$py "${build_file}" --clang-completer --system-libclang
+$py "${build_file}" --clang-completer
 
 rm -f python/*ycm_core.* &> /dev/null
 rm -f python/*ycm_client_support.* &> /dev/null

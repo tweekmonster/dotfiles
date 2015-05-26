@@ -56,6 +56,7 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'mtth/scratch.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'mattn/emmet-vim'
+NeoBundle 'RelOps'
 NeoBundle 'rdnetto/YCM-Generator'
 NeoBundle 'Valloric/YouCompleteMe'
 
@@ -85,11 +86,11 @@ set background=dark
 set ttyfast
 set modelines=1
 set number
-set relativenumber
+" set relativenumber
 set showcmd
 set cursorline
 set wildmenu
-set lazyredraw
+" set nolazyredraw
 set showmatch
 set splitbelow
 set splitright
@@ -315,7 +316,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
