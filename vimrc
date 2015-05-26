@@ -5,6 +5,7 @@ set encoding=utf-8
 
 if has('nvim')
    set clipboard+=unnamed
+   let g:clipboard_min_bytes = 1
 endif
 
 if has('vim_starting')
@@ -26,6 +27,7 @@ let g:neobundle#install_process_timeout = 1500
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'gmarik/Vundle.vim'
 NeoBundle 'simnalamburt/vim-mundo'
@@ -62,7 +64,6 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 " }}}
-
 
 " GUI {{{
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h11
