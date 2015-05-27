@@ -29,7 +29,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'gmarik/Vundle.vim'
 NeoBundle 'simnalamburt/vim-mundo'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-sleuth'
@@ -383,8 +382,8 @@ let g:gitgutter_sign_column_always = 1
 function! Multiple_cursors_before()
    if exists('*youcompleteme#EnableCursorMovedAutocommands')
       let g:ycm_auto_trigger = 0
-      let s:old_ycm_whitelist = g:ycm_filetype_whitelist                           
-      let g:ycm_filetype_whitelist = {}  
+      let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+      let g:ycm_filetype_whitelist = {}
       call youcompleteme#DisableCursorMovedAutocommands()
    endif
 endfunction
