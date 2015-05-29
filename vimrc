@@ -4,16 +4,16 @@ scriptencoding utf-8
 set encoding=utf-8
 
 if has('nvim')
-   set clipboard+=unnamed
-   let g:clipboard_min_bytes = 1
+  set clipboard+=unnamed
+  let g:clipboard_min_bytes = 1
 endif
 
 if has('vim_starting')
-   if &compatible
-      set nocompatible
-   endif
+  if &compatible
+    set nocompatible
+  endif
 
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
@@ -36,14 +36,14 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
+      \ 'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \    },
+      \ }
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'airblade/vim-gitgutter'
@@ -66,7 +66,6 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'mtth/scratch.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'mattn/emmet-vim'
-NeoBundle 'RelOps'
 NeoBundle 'hdima/python-syntax'
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'rdnetto/YCM-Generator'
@@ -92,20 +91,21 @@ let xml_syntax_folding=1
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 if exists('$TMUX')
-   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 set mouse=a
 
 if &term =~ '^screen'
-   set ttymouse=xterm2
+  set ttymouse=xterm2
 endif
 
 set background=dark
+set completeopt-=preview
 set ttyfast
 set modelines=1
 set number
@@ -171,8 +171,8 @@ set undodir=~/.vim/undo
 " Theme {{{
 let base16colorspace=256
 try
-   " Ignore the theme doesn't exist for dotfiles installation
-   colorscheme base16-tomorrow-custom
+  " Ignore the theme doesn't exist for dotfiles installation
+  colorscheme base16-tomorrow-custom
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
@@ -216,10 +216,10 @@ let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite',
 let g:multi_cursor_exit_from_insert_mode = 0
 
 augroup Annoying
-   autocmd!
-   " Stop screen flashing
-   autocmd VimEnter * set visualbell t_vb=
-   autocmd GUIEnter * set visualbell t_vb=
+  autocmd!
+  " Stop screen flashing
+  autocmd VimEnter * set visualbell t_vb=
+  autocmd GUIEnter * set visualbell t_vb=
 augroup END
 " }}}
 
@@ -289,7 +289,8 @@ nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 let g:unite_source_history_yank_enable = 1
 " let g:unite_split_rule = 'botright'
 let g:unite_prompt='» '
-" let g:unite_source_line_enable_highlight = 1
+let g:unite_source_line_enable_highlight = 1
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
@@ -305,7 +306,7 @@ if executable('ag')
 endif
 
 nnoremap <silent> <c-p> :Unite -auto-resize -toggle -start-insert -buffer-name=files file_mru file_rec/async<cr>
-nnoremap <silent> <space>/ :Unite grep:.<cr>
+nnoremap <silent> <leader>/ :Unite grep:.<cr>
 nnoremap <silent> <leader>o :<C-u>Unite -buffer-name=outline -toggle -auto-resize -direction=topleft outline<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yank -toggle -quick-match -auto-resize -direction=topleft history/yank<cr>
 nnoremap <silent> <leader>e :<C-u>Unite -buffer-name=buffer -quick-match -toggle -auto-resize -direction=topleft buffer<cr>
@@ -413,18 +414,18 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " Silver Searcher {{{
 if executable('ag')
-   set grepprg=ag\ --vimgrep\ -w\ $*
+  set grepprg=ag\ --vimgrep\ -w\ $*
 
-   if executable('agtrunc')
-      set grepprg+=\ \\\|\ agtrunc
-   endif
+  if executable('agtrunc')
+    set grepprg+=\ \\\|\ agtrunc
+  endif
 
-   set grepformat=%f:%l:%c:%m
-   " command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
-   " nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
-   "
-   " let g:ctrlp_user_command = 'ag ""%s -l --nocolor -g ""'
-   " let g:ctrlp_use_caching = 0
+  set grepformat=%f:%l:%c:%m
+  " command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
+  " nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
+  "
+  " let g:ctrlp_user_command = 'ag ""%s -l --nocolor -g ""'
+  " let g:ctrlp_use_caching = 0
 endif
 " }}}
 
@@ -434,20 +435,20 @@ let g:gitgutter_sign_column_always = 1
 
 " Multiple Cursors {{{
 function! Multiple_cursors_before()
-   if exists('*youcompleteme#EnableCursorMovedAutocommands')
-      let g:ycm_auto_trigger = 0
-      let s:old_ycm_whitelist = g:ycm_filetype_whitelist
-      let g:ycm_filetype_whitelist = {}
-      call youcompleteme#DisableCursorMovedAutocommands()
-   endif
+  if exists('*youcompleteme#EnableCursorMovedAutocommands')
+    let g:ycm_auto_trigger = 0
+    let s:old_ycm_whitelist = g:ycm_filetype_whitelist
+    let g:ycm_filetype_whitelist = {}
+    call youcompleteme#DisableCursorMovedAutocommands()
+  endif
 endfunction
 
 function! Multiple_cursors_after()
-   if exists('*youcompleteme#EnableCursorMovedAutocommands')
-      let g:ycm_auto_trigger = 1
-      let g:ycm_filetype_whitelist = s:old_ycm_whitelist
-      call youcompleteme#EnableCursorMovedAutocommands()
-   endif
+  if exists('*youcompleteme#EnableCursorMovedAutocommands')
+    let g:ycm_auto_trigger = 1
+    let g:ycm_filetype_whitelist = s:old_ycm_whitelist
+    call youcompleteme#EnableCursorMovedAutocommands()
+  endif
 endfunction
 " }}}
 
@@ -458,79 +459,81 @@ let delimitMate_jump_expansion = 1
 
 " File Type Auto Groups {{{
 augroup configgroup
-   autocmd!
-   autocmd VimEnter * highlight clear SignColumn
-   autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
-   autocmd FileType python setlocal completeopt-=preview textwidth=79
-   autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-   autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
-   autocmd FileType xml setlocal foldlevelstart=2
-   " autocmd BufEnter * :call <SID>FTSetup()
-   " autocmd WinEnter * :call <SID>FTSetup()
-   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
-   autocmd BufEnter *.cls setlocal filetype=java
-   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-   autocmd BufEnter Makefile setlocal noexpandtab
-   autocmd BufEnter *.sh setlocal tabstop=2
-   autocmd BufEnter *.sh setlocal shiftwidth=2
-   autocmd BufEnter *.sh setlocal softtabstop=2
-   " Force quickfix to the bottom
-   " autocmd FileType qf wincmd J | call AdjustWindowHeight(3, 10)
+  autocmd!
+  autocmd VimEnter * highlight clear SignColumn
+  autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
+  autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
+  autocmd FileType python setlocal completeopt-=preview textwidth=79
+  autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+  autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
+  autocmd FileType xml setlocal foldlevelstart=2
+  " autocmd BufEnter * :call <SID>FTSetup()
+  " autocmd WinEnter * :call <SID>FTSetup()
+  autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
+  autocmd BufEnter *.cls setlocal filetype=java
+  autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+  autocmd BufEnter Makefile setlocal noexpandtab
+  autocmd BufEnter *.sh setlocal tabstop=2
+  autocmd BufEnter *.sh setlocal shiftwidth=2
+  autocmd BufEnter *.sh setlocal softtabstop=2
+  " Force quickfix to the bottom
+  " autocmd FileType qf wincmd J | call AdjustWindowHeight(3, 10)
 augroup END
 " }}}
 
 " Functions {{{
 " toggle between number and relativenumber
 function! ToggleNumber()
-   if (&relativenumber == 1)
-      set norelativenumber
-      set number
-   else
-      set relativenumber
-   endif
+  if (&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
 endfunc
 
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
 function! <SID>StripTrailingWhitespaces()
-   " save last search & cursor position
-   let _s=@/
-   let l = line(".")
-   let c = col(".")
-   %s/\s\+$//e
-   let @/=_s
-   call cursor(l, c)
+  " save last search & cursor position
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  let @/=_s
+  call cursor(l, c)
 endfunction
 
 function! AdjustWindowHeight(minheight, maxheight)
-   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
 function! AppendModeline()
-   let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-            \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-   call append(line("$"), l:modeline)
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-" function! <SID>FTSetup()
-"     " Sets up the buffer for a file type
-"     " This is a separate function because it's easier than
-"     " creating a bunch of autocommands to do the exact same
-"     " thing, and it can make exclusions instead of inclusions.
-"     if &ft !~? 'vimfiler\|unite\|help\|man'
-"     endif
-" endfunction
+" c-kinds of file swapping
+let s:sources = ['.c', '.cpp', '.cc', '.cxx', '.m', '.mm']
+let s:headers = ['.h', '.hh', '.hpp']
 
-" function! HostStatusLine(...)
-"     call a:1.add_raw(' ' . hostname() . ' ')
-"     return 0
-" endfunc
-" try
-"     call airline#add_statusline_func('HostStatusLine')
-" catch
-" endtry
+function! <SID>c_swap_source()
+  let search = s:headers
+  if expand('%:e') =~? '^h'
+    let search = s:sources
+  endif
+
+  for ext in search
+    let filename = expand('%:r') . ext
+    if filereadable(filename)
+      exec printf(':edit %s', filename)
+    endif
+  endfor
+endfunction
+
 "}}}
 
 " Gitv {{{
@@ -540,7 +543,7 @@ let g:Gitv_OpenPreviewOnLaunch = 1
 
 let s:vimrc_local = expand("$HOME/.vimrc_local")
 if filereadable(s:vimrc_local)
-   exec "source " . s:vimrc_local
+  exec "source " . s:vimrc_local
 endif
 
 " vim:foldmethod=marker:foldlevel=0
