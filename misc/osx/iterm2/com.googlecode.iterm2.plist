@@ -5,7 +5,7 @@
 	<key>AdjustWindowForFontSizeChange</key>
 	<true/>
 	<key>AllowClipboardAccess</key>
-	<true/>
+	<false/>
 	<key>AnimateDimming</key>
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -553,8 +553,10 @@
 	<true/>
 	<key>DimOnlyText</key>
 	<false/>
+	<key>DisableAppNap</key>
+	<true/>
 	<key>DisableFullscreenTransparency</key>
-	<false/>
+	<true/>
 	<key>EnableRendezvous</key>
 	<false/>
 	<key>FocusFollowsMouse</key>
@@ -617,6 +619,25 @@
 	<string></string>
 	<key>NSScrollAnimationEnabled</key>
 	<false/>
+	<key>NSScrollViewShouldScrollUnderTitlebar</key>
+	<false/>
+	<key>NSTableView Columns KeyBingingTable</key>
+	<array>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErATCG
+		</data>
+		<string>198</string>
+		<data>
+		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
+		hAErATGG
+		</data>
+		<string>307</string>
+	</array>
+	<key>NSTableView Hidden Columns KeyBingingTable</key>
+	<array/>
+	<key>NSTableView Sort Ordering KeyBingingTable</key>
+	<array/>
 	<key>NSToolbar Configuration Terminal Toolbar</key>
 	<dict>
 		<key>TB Display Mode</key>
@@ -636,13 +657,17 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1457 235 825 226 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>180 656 924 485 0 0 2560 1417 </string>
+	<string>855 419 796 475 0 0 2560 1417 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>1584 989 620 392 0 0 2560 1417 </string>
+	<key>NSWindow Frame UKCrashReporter</key>
+	<string>230 833 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1241 773 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 67 2560 1350 0 0 2560 1417 </string>
+	<string>0 949 910 468 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>938 421 1198 468 0 0 2560 1417 </string>
+	<string>938 421 910 468 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -842,6 +867,8 @@
 			<integer>150</integer>
 			<key>Command</key>
 			<string></string>
+			<key>Cursor Boost</key>
+			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -861,7 +888,7 @@
 				<real>0.11372549086809158</real>
 			</dict>
 			<key>Cursor Type</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
@@ -873,7 +900,7 @@
 			<key>Disable Smcup Rmcup</key>
 			<false/>
 			<key>Disable Window Resizing</key>
-			<true/>
+			<false/>
 			<key>Flashing Bell</key>
 			<true/>
 			<key>Foreground Color</key>
@@ -1173,6 +1200,8 @@
 			<string>Input-Regular 10</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
+			<key>Place Prompt at First Column</key>
+			<false/>
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -1333,6 +1362,8 @@
 			<true/>
 			<key>Use Canonical Parser</key>
 			<false/>
+			<key>Use Cursor Guide</key>
+			<false/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Vertical Spacing</key>
@@ -1348,7 +1379,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>453251133.80668199</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>454215627.924752</real>
+	<real>454388431.62015802</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1406,12 +1437,14 @@
 	<integer>3</integer>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
+	<key>SUFeedAlternateAppNameKey</key>
+	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>http://iterm2.com/appcasts/testing.xml</string>
+	<string>https://iterm2.com/appcasts/nightly.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-05-24T21:26:41Z</date>
+	<date>2015-05-28T21:26:52Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -1421,7 +1454,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowPaneTitles</key>
-	<true/>
+	<false/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
@@ -1430,12 +1463,14 @@
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
 	<integer>6</integer>
-	<key>TabViewType</key>
+	<key>TabStyle</key>
 	<integer>1</integer>
+	<key>TabViewType</key>
+	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
 	<false/>
 	<key>TimeBetweenBlinks</key>
-	<real>0.20000000298023224</real>
+	<real>0.5</real>
 	<key>TmuxDashboardLimit</key>
 	<integer>10</integer>
 	<key>ToolbeltTools</key>
@@ -1445,6 +1480,8 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
+	<key>UKCrashReporterLastCrashReportDate</key>
+	<real>1432758656</real>
 	<key>URLHandlersByGuid</key>
 	<dict/>
 	<key>UseBorder</key>
@@ -1452,6 +1489,8 @@
 	<key>UseCompactLabel</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
+	<false/>
+	<key>UseSystemCursorWhenPossible</key>
 	<false/>
 	<key>WebKitDefaultFontSize</key>
 	<integer>11</integer>
@@ -1470,6 +1509,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.1.1</string>
+	<string>2.9.20150528-nightly</string>
 </dict>
 </plist>
