@@ -29,7 +29,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'chriskempson/base16-vim'
-" NeoBundle 'simnalamburt/vim-mundo'
+NeoBundle 'simnalamburt/vim-mundo'
 " NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tomtom/tcomment_vim'
@@ -226,6 +226,8 @@ augroup END
 " key bindings {{{
 let mapleader=","
 
+cmap w!! w !sudo tee > /dev/null %
+
 if has('nvim')
   " meta key navigates splits
   nnoremap <m-j> <c-w><c-j>
@@ -290,6 +292,7 @@ let g:unite_source_history_yank_enable = 1
 " let g:unite_split_rule = 'botright'
 let g:unite_prompt='» '
 let g:unite_source_line_enable_highlight = 1
+let g:unite_winheight = 8
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
