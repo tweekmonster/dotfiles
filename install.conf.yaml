@@ -41,6 +41,10 @@
         relink: true
         create: true
         path: misc/vim_colors
+    ~/.vim/ftplugin:
+        relink: true
+        create: true
+        path: misc/vim_ftplugin
     ~/.tmux.conf:
         relink: true
         path: tmux.conf

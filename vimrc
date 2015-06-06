@@ -4,7 +4,9 @@ scriptencoding utf-8
 set encoding=utf-8
 
 if has('nvim')
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set clipboard+=unnamed
+  set t_Co=256
   let g:clipboard_min_bytes = 1
 endif
 
@@ -30,7 +32,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'simnalamburt/vim-mundo'
-" NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'FelikZ/ctrlp-py-matcher'
+NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/unite.vim'
@@ -57,25 +60,52 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'terryma/vim-multiple-cursors'
 " NeoBundle 'majutsushi/tagbar'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'hynek/vim-python-pep8-indent'
+" NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
-NeoBundle 'mtth/scratch.vim'
+" NeoBundle 'mtth/scratch.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'hdima/python-syntax'
 NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'rdnetto/YCM-Generator'
-NeoBundle 'Valloric/YouCompleteMe'
+" NeoBundle 'rdnetto/YCM-Generator'
+" NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'klen/python-mode'
+NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'fatih/vim-nginx'
+NeoBundle 'othree/xml.vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'edsono/vim-matchit'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'nono/jquery.vim'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-line'
+NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'Shougo/deoplete.nvim'
+NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
 call neobundle#end()
 
 filetype plugin indent on
 NeoBundleCheck
 " }}}
+
+" let g:deoplete#enable_at_startup = 1
+let g:pymode_trim_whitespaces = 0
+let g:pymode_doc = 0
+let g:pymode_folding = 0
+let g:pymode_rope = 0
+let g:pymode_lint = 0
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options_max_line_length = 79
+let g:pymode_run = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures = 0
 
 " GUI {{{
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h11
@@ -87,8 +117,6 @@ syntax enable
 
 let python_highlight_all = 1
 let xml_syntax_folding=1
-
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -105,15 +133,16 @@ if &term =~ '^screen'
 endif
 
 set background=dark
+set noshowmode
 set completeopt-=preview
 set ttyfast
-set modelines=1
+set modelines=5
 set number
 " set relativenumber
 set showcmd
 set cursorline
 set wildmenu
-" set nolazyredraw
+set nolazyredraw
 set showmatch
 set splitbelow
 set splitright
@@ -183,11 +212,12 @@ setglobal listchars=tab:▸\ ,eol:¬,trail:□
 " catch
 " endtry
 
+let g:indentLine_faster = 1
 let g:indentLine_leadingSpaceChar = '∙'
 let g:indentLine_char = '│'
 let g:indentLine_first_char = '│'
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_showFirstIndentLevel = 1
+" let g:indentLine_leadingSpaceEnabled = 1
+" let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki']
 
 "
@@ -225,8 +255,27 @@ augroup END
 
 " key bindings {{{
 let mapleader=","
+" inoremap <expr> <C-Space> <C-x><C-o><C-p>
+inoremap <C-@> <C-Space>
+
+function! Complete_trigger()
+  if &omnifunc == ''
+    return "\<c-n>\<c-p>"
+  else
+    return "\<c-x>\<c-o>\<c-p>"
+  endif
+endfunction
+
+inoremap <expr> <c-space> Complete_trigger()
+imap <C-@> <C-Space>
 
 cmap w!! w !sudo tee > /dev/null %
+cmap w; :echoe 'NO DAMMIT!'<cr>
+cmap w' :echoe 'NO DAMMIT!'<cr>
+cmap w/ :echoe 'NO DAMMIT!'<cr>
+
+nnoremap / /\v
+vnoremap / /\v
 
 if has('nvim')
   " meta key navigates splits
@@ -308,9 +357,9 @@ if executable('ag')
   let g:unite_source_grep_recursive_opt = ''
 endif
 
-nnoremap <silent> <c-p> :Unite -auto-resize -toggle -start-insert -buffer-name=files file_mru file_rec/async<cr>
-nnoremap <silent> <leader>/ :Unite grep:.<cr>
-nnoremap <silent> <leader>o :<C-u>Unite -buffer-name=outline -toggle -auto-resize -direction=topleft outline<cr>
+" nnoremap <silent> <c-p> :Unite -auto-resize -toggle -start-insert -buffer-name=files file_mru file_rec/async<cr>
+" nnoremap <silent> <leader>/ :Unite grep:.<cr>
+" nnoremap <silent> <leader>o :<C-u>Unite -buffer-name=outline -toggle -auto-resize -direction=topleft outline<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yank -toggle -quick-match -auto-resize -direction=topleft history/yank<cr>
 nnoremap <silent> <leader>e :<C-u>Unite -buffer-name=buffer -quick-match -toggle -auto-resize -direction=topleft buffer<cr>
 
@@ -321,17 +370,30 @@ function! s:unite_settings()
   imap <buffer> <C-j> <Plug>(unite_select_next_line)
   imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
+
+nnoremap <silent> <leader>e :CtrlPBufTag<cr>
 " }}}
 
 " VimFiler {{{
-nnoremap <silent> <leader>n :VimFilerBufferDir -buffer-name=explorer -split -simple -winwidth=35 -toggle -force-quit<CR>
+nnoremap <silent> <leader>v :VimFilerCurrentDir -buffer-name=explorer -find -project -split -simple -winwidth=35 -toggle -force-quit<CR>
 let g:vimfiler_as_default_explorer = 1
-call vimfiler#custom#profile('default', 'context', {})
+call vimfiler#custom#profile('default', 'context', {
+      \ 'safe': 0,
+      \ })
+let g:vimfiler_ignore_pattern = '\(\.git\|__pycache__\|\.pyc\|\.DS_Store$\)'
 let g:vimfiler_tree_leaf_icon = ' '
 let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
+
+function! s:vimfiler_esttings()
+  set nonumber
+  set norelativenumber
+  nmap <buffer> q Q
+endfunction
+
+autocmd FileType vimfiler call s:vimfiler_esttings()
 " }}}
 
 " " NERDTree {{{
@@ -382,15 +444,33 @@ let g:syntastic_python_flake8_args='--ignore=E501,E226,F403'
 " }}}
 
 " CtrlP settings {{{
-let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_match_window = 'top,order:ttb'
+let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
+let g:ctrlp_lazy_update = 50
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
+let g:ctrlp_extensions = ['buffertag']
 " }}}
 
 " YCM {{{
 " let g:ycm_add_preview_to_completeopt = 1
 " let g:ycm_min_num_of_chars_for_completion = 99
+let g:ycm_filetype_blacklist = {
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'unite': 1,
+      \ 'tagbar': 1,
+      \ 'pandoc': 1,
+      \ 'qf': 1,
+      \ 'vimwiki': 1,
+      \ 'text': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1,
+      \ 'python': 1,
+      \ 'less': 1,
+      \ }
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
@@ -424,10 +504,10 @@ if executable('ag')
   endif
 
   set grepformat=%f:%l:%c:%m
-  " command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
-  " nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
-  "
-  " let g:ctrlp_user_command = 'ag ""%s -l --nocolor -g ""'
+  command! -nargs=+ Ag exec 'silent! grep! <args>' | copen | exec 'silent /<args>' | redraw!
+  nnoremap <leader>a :Ag <c-r>=expand('<cword>')<CR><CR>
+  nnoremap <leader>/ :Ag
+  let g:ctrlp_user_command = 'ag ""%s -l --nocolor -g ""'
   " let g:ctrlp_use_caching = 0
 endif
 " }}}
@@ -458,6 +538,7 @@ endfunction
 " delimitMate {{{
 let delimitMate_expand_cr = 2
 let delimitMate_jump_expansion = 1
+let delimitMate_matchpairs = "(:),[:],{:}"
 " }}}
 
 " File Type Auto Groups {{{
@@ -468,10 +549,10 @@ augroup configgroup
   autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
   autocmd FileType python setlocal completeopt-=preview textwidth=79
   autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+  autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
   autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
   autocmd FileType xml setlocal foldlevelstart=2
-  " autocmd BufEnter * :call <SID>FTSetup()
-  " autocmd WinEnter * :call <SID>FTSetup()
+  autocmd FileType gitcommit wincmd J
   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
   autocmd BufEnter *.cls setlocal filetype=java
   autocmd BufEnter *.zsh-theme setlocal filetype=zsh
@@ -479,8 +560,8 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal tabstop=2
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
-  " Force quickfix to the bottom
-  " autocmd FileType qf wincmd J | call AdjustWindowHeight(3, 10)
+  autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango
+  autocmd FileType htmldjango inoremap </ </<c-x><c-o><esc>a
 augroup END
 " }}}
 
@@ -512,9 +593,13 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  let l:modeline = printf(' vim: set ft=%s ts=%d sw=%d tw=%d %set :',
+        \ &filetype, &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:commentstring = &commentstring
+  if tcomment#TypeExists(&filetype) != ''
+    let l:commentstring = tcomment#GetCommentDef(&filetype).commentstring
+  endif
+  let l:modeline = printf(l:commentstring, l:modeline)
   call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
