@@ -18,8 +18,8 @@ plugins=(
     sudo
     supervisor
     systemadmin
-    tmux
     pyenv
+    tmux
 )
 
 source "${ZSH}/oh-my-zsh.sh"

@@ -86,6 +86,7 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-line'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'itchyny/vim-cursorword'
 " NeoBundle 'Shougo/deoplete.nvim'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
@@ -133,6 +134,7 @@ if &term =~ '^screen'
 endif
 
 set background=dark
+set spell
 set noshowmode
 set completeopt-=preview
 set ttyfast
@@ -452,6 +454,7 @@ let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 let g:ctrlp_extensions = ['buffertag']
+let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*\|/var/folders/.*\|/usr/local/Cellar/neovim/.*'
 " }}}
 
 " YCM {{{
@@ -552,7 +555,7 @@ augroup configgroup
   autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
   autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
   autocmd FileType xml setlocal foldlevelstart=2
-  autocmd FileType gitcommit wincmd J
+  " autocmd FileType gitcommit wincmd J
   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
   autocmd BufEnter *.cls setlocal filetype=java
   autocmd BufEnter *.zsh-theme setlocal filetype=zsh

@@ -1,4 +1,6 @@
-if [[ -z $ZSHENV_PATH_SET ]]; then
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
     if [[ $OSTYPE =~ "linux" ]]; then
@@ -10,6 +12,10 @@ if [[ -z $ZSHENV_PATH_SET ]]; then
     PATH="$HOME/bin:$HOME/.npm/bin:$PATH"
     export PATH
     export ZSHENV_PATH_SET=1
+
+    if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+        source "${VIRTUAL_ENV}/bin/activate"
+    fi
 fi
 
 export EDITOR=vim
