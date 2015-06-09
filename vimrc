@@ -34,7 +34,7 @@ NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'simnalamburt/vim-mundo'
 NeoBundle 'FelikZ/ctrlp-py-matcher'
 NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tpope/vim-sleuth'
+" NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
@@ -87,7 +87,7 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-line'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'itchyny/vim-cursorword'
-" NeoBundle 'Shougo/deoplete.nvim'
+NeoBundle 'Shougo/deoplete.nvim'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
 call neobundle#end()
@@ -96,7 +96,7 @@ filetype plugin indent on
 NeoBundleCheck
 " }}}
 
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 let g:pymode_trim_whitespaces = 0
 let g:pymode_doc = 0
 let g:pymode_folding = 0
@@ -258,18 +258,18 @@ augroup END
 " key bindings {{{
 let mapleader=","
 " inoremap <expr> <C-Space> <C-x><C-o><C-p>
-inoremap <C-@> <C-Space>
-
-function! Complete_trigger()
-  if &omnifunc == ''
-    return "\<c-n>\<c-p>"
-  else
-    return "\<c-x>\<c-o>\<c-p>"
-  endif
-endfunction
-
-inoremap <expr> <c-space> Complete_trigger()
-imap <C-@> <C-Space>
+" inoremap <C-@> <C-Space>
+"
+" function! Complete_trigger()
+"   if &omnifunc == ''
+"     return "\<c-n>\<c-p>"
+"   else
+"     return "\<c-x>\<c-o>\<c-p>"
+"   endif
+" endfunction
+"
+" inoremap <expr> <c-space> Complete_trigger()
+" imap <C-@> <C-Space>
 
 cmap w!! w !sudo tee > /dev/null %
 cmap w; :echoe 'NO DAMMIT!'<cr>
@@ -481,7 +481,7 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-j>'
 let g:SuperTabCrMapping = 0
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " The protection this is supposed to provide shouldn't be outweighed by how
 " annoying the focus stealing prompt is.
@@ -550,7 +550,7 @@ augroup configgroup
   autocmd VimEnter * highlight clear SignColumn
   autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
   autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
-  autocmd FileType python setlocal completeopt-=preview textwidth=79
+  autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
   autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
   autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
   autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable

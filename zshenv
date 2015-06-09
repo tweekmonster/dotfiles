@@ -9,7 +9,7 @@ if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
         export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
     fi
 
-    PATH="$HOME/bin:$HOME/.npm/bin:$PATH"
+    PATH="$HOME/bin:$HOME/.local/bin:$HOME/.npm/bin:$PATH"
     export PATH
     export ZSHENV_PATH_SET=1
 
