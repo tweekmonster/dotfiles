@@ -37,7 +37,7 @@ NeoBundle 'kien/ctrlp.vim'
 " NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
+" NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
       \     'windows' : 'tools\\update-dll-mingw',
@@ -47,7 +47,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'gmake',
       \    },
       \ }
-NeoBundle 'Shougo/neomru.vim'
+" NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'bling/vim-airline'
@@ -88,6 +88,10 @@ NeoBundle 'kana/vim-textobj-line'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'Shougo/deoplete.nvim'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-notes'
+NeoBundle 'xolox/vim-session'
+NeoBundle 'airblade/vim-rooter'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
 call neobundle#end()
@@ -95,6 +99,11 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 " }}}
+
+let g:rooter_patterns = ['.vimroot']
+
+let g:session_autoload = 'no'
+let g:notes_directories = ['~/Dropbox/Sync/vim_notes']
 
 let g:deoplete#enable_at_startup = 0
 let g:pymode_trim_whitespaces = 0
@@ -107,6 +116,7 @@ let g:pymode_options_max_line_length = 79
 let g:pymode_run = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures = 0
+let g:jedi#max_doc_height = 10
 
 " GUI {{{
 " set guifont=Source\ Code\ Pro\ for\ Powerline:h11
@@ -134,6 +144,7 @@ if &term =~ '^screen'
 endif
 
 set background=dark
+set concealcursor=nc
 set spell
 set noshowmode
 set completeopt-=preview
@@ -220,7 +231,7 @@ let g:indentLine_char = '│'
 let g:indentLine_first_char = '│'
 " let g:indentLine_leadingSpaceEnabled = 1
 " let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki']
+let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki', 'notes']
 
 "
 " " Make sure whitespace characters remain muted even on CursorLine
@@ -339,7 +350,7 @@ nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
 
 " Unite
-let g:unite_source_history_yank_enable = 1
+" let g:unite_source_history_yank_enable = 1
 " let g:unite_split_rule = 'botright'
 let g:unite_prompt='» '
 let g:unite_source_line_enable_highlight = 1
@@ -377,7 +388,7 @@ nnoremap <silent> <leader>e :CtrlPBufTag<cr>
 " }}}
 
 " VimFiler {{{
-nnoremap <silent> <leader>v :VimFilerCurrentDir -buffer-name=explorer -find -project -split -simple -winwidth=35 -toggle -force-quit<CR>
+nnoremap <silent> <leader>v :VimFiler -find -project -split -simple -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
 let g:vimfiler_as_default_explorer = 1
 call vimfiler#custom#profile('default', 'context', {
       \ 'safe': 0,
@@ -451,10 +462,10 @@ let g:ctrlp_match_window = 'top,order:ttb'
 let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 let g:ctrlp_lazy_update = 50
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 let g:ctrlp_extensions = ['buffertag']
-let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*\|/var/folders/.*\|/usr/local/Cellar/neovim/.*'
+let g:ctrlp_mruf_exclude = '\.git/*\|/tmp/.*\|/temp/.*\|/var/folders/.*\|/usr/local/Cellar/neovim/.*'
 " }}}
 
 " YCM {{{
@@ -549,6 +560,7 @@ augroup configgroup
   autocmd!
   autocmd VimEnter * highlight clear SignColumn
   autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
+  autocmd BufEnter * if (exists('b:syntastic_skip_checks')) | unlet b:syntastic_skip_checks
   autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
   autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
   autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
