@@ -559,6 +559,7 @@ let delimitMate_matchpairs = "(:),[:],{:}"
 augroup configgroup
   autocmd!
   autocmd VimEnter * highlight clear SignColumn
+  autocmd VimEnter * :Rooter
   autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
   autocmd BufEnter * if (exists('b:syntastic_skip_checks')) | unlet b:syntastic_skip_checks
   autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
