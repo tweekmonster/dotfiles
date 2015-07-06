@@ -659,7 +659,7 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>855 941 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>175 923 400 129 0 0 2560 1417 </string>
+	<string>1837 989 400 129 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>56 662 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
@@ -667,7 +667,7 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>689 198 1858 1182 0 0 2560 1417 </string>
+	<string>466 234 1810 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>352 852 886 454 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1399,7 +1399,7 @@
 	<key>OpenBookmark</key>
 	<false/>
 	<key>OpenTmuxWindowsIn</key>
-	<integer>0</integer>
+	<integer>2</integer>
 	<key>PassOnControlClick</key>
 	<true/>
 	<key>PasteFromClipboard</key>
@@ -1456,7 +1456,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-06-17T01:47:47Z</date>
+	<date>2015-06-21T01:47:55Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -1501,7 +1501,7 @@
 	<key>UseCompactLabel</key>
 	<false/>
 	<key>UseDoubleBufferedGrid</key>
-	<false/>
+	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseSystemCursorWhenPossible</key>
@@ -1523,6 +1523,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150613-nightly</string>
+	<string>2.9.20150616-nightly</string>
 </dict>
 </plist>
