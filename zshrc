@@ -11,6 +11,7 @@ BASE16_SHELL="${dotfiles}/misc/base16-shell/base16-tomorrow.dark.sh"
 # Begin loading oh-my-zsh
 ZSH="${dotfiles}/zsh/oh-my-zsh"
 ZSH_THEME=""
+DISABLE_AUTO_UPDATE=true
 plugins=(
     catimg
     pip
