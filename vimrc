@@ -65,7 +65,9 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'SirVer/ultisnips'
+NeoBundle 'SirVer/ultisnips', {
+            \ 'vim_version': '7.4',
+            \ }
 " NeoBundle 'mtth/scratch.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'mattn/emmet-vim'
