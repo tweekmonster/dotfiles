@@ -570,6 +570,7 @@ augroup configgroup
   autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
   autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
   autocmd FileType xml setlocal foldlevelstart=2
+  autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
   " autocmd FileType gitcommit wincmd J
   autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>StripTrailingWhitespaces()
   autocmd BufEnter *.cls setlocal filetype=java
