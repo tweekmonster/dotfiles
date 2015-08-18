@@ -92,7 +92,8 @@ NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'Shougo/deoplete.nvim'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-notes'
-NeoBundle 'xolox/vim-session'
+" NeoBundle 'xolox/vim-session'
+NeoBundle 'tpope/vim-obsession'
 NeoBundle 'airblade/vim-rooter'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
@@ -104,7 +105,7 @@ NeoBundleCheck
 
 let g:rooter_patterns = ['.vimroot']
 
-let g:session_autoload = 'no'
+" let g:session_autoload = 'no'
 let g:notes_directories = ['~/Dropbox/Sync/vim_notes']
 
 let g:deoplete#enable_at_startup = 0
@@ -646,6 +647,16 @@ endfunction
 " Gitv {{{
 let g:Gitv_OpenHorizontal = 1
 let g:Gitv_OpenPreviewOnLaunch = 1
+" }}}
+
+" Obsession {{{
+augroup sourcesession
+        autocmd!
+        autocmd VimEnter * nested
+        \ if !argc() && empty(v:this_session) && filereadable('Session.vim') |
+        \   source Session.vim |
+        \ endif
+augroup END
 " }}}
 
 let s:vimrc_local = expand("$HOME/.vimrc_local")

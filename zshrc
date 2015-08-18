@@ -27,6 +27,7 @@ source "${ZSH}/oh-my-zsh.sh"
 
 source "${dotfiles}/zsh/zaw/zaw.zsh"
 source "${dotfiles}/zsh/aliases.zsh"
+source "${dotfiles}/zsh/venv.zsh"
 source "${dotfiles}/zsh/zsh-duckduckgo/duckduckgo.zsh"
 
 if [[ -e "${HOME}/.zshrc_local" ]]; then
