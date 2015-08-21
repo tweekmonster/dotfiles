@@ -460,7 +460,7 @@ let g:syntastic_python_flake8_args='--ignore=E501,E226,F403'
 " }}}
 
 " CtrlP settings {{{
-let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_match_window = 'top,order:ttb'
 let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 let g:ctrlp_lazy_update = 50

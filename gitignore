@@ -2,6 +2,7 @@
 *.sublime-project
 musings/
 .python-version
+.venv
 
 # Created by https://www.gitignore.io
 

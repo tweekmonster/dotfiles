@@ -634,7 +634,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>322</string>
+		<string>307</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -669,9 +669,9 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>157 133 2290 1280 0 0 2560 1417 </string>
+	<string>217 189 2254 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>352 138 1810 1168 0 0 2560 1417 </string>
+	<string>306 138 2254 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>157 92 910 468 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
@@ -870,7 +870,7 @@
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>300</integer>
+			<integer>374</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Boost</key>
@@ -1514,7 +1514,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-08-12T19:10:58Z</date>
+	<date>2015-08-17T19:11:07Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -1583,6 +1583,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150810-nightly</string>
+	<string>2.9.20150812-nightly</string>
 </dict>
 </plist>
