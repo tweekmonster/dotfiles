@@ -559,6 +559,8 @@
 	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
+	<key>DisallowCopyEmptyString</key>
+	<true/>
 	<key>EnableRendezvous</key>
 	<false/>
 	<key>FocusFollowsMouse</key>
@@ -669,11 +671,11 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>217 189 2254 1168 0 0 2560 1417 </string>
+	<string>14 129 2248 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>306 138 2254 1168 0 0 2560 1417 </string>
+	<string>679 561 874 566 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>157 92 910 468 0 0 2560 1417 </string>
+	<string>157 47 2254 1168 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1499,6 +1501,10 @@
 	<string>~/dotfiles/misc/osx/iterm2</string>
 	<key>PromptOnQuit</key>
 	<true/>
+	<key>QuickPasteBytesPerCall</key>
+	<integer>3456</integer>
+	<key>QuickPasteDelayBetweenCalls</key>
+	<real>0.0029629627242684364</real>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
 	<key>RightCommand</key>
@@ -1514,7 +1520,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-08-17T19:11:07Z</date>
+	<date>2015-09-19T02:32:08Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -1583,6 +1589,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150812-nightly</string>
+	<string>2.9.20150914-nightly</string>
 </dict>
 </plist>

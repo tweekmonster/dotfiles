@@ -3,6 +3,7 @@
 musings/
 .python-version
 .venv
+.vimroot
 
 # Created by https://www.gitignore.io
 

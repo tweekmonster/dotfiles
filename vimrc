@@ -95,6 +95,9 @@ NeoBundle 'xolox/vim-notes'
 " NeoBundle 'xolox/vim-session'
 NeoBundle 'tpope/vim-obsession'
 NeoBundle 'airblade/vim-rooter'
+NeoBundle 'Rip-Rip/clang_complete'
+NeoBundle 'bonsaiben/bootstrap-snippets'
+NeoBundle 'vim-scripts/BufOnly.vim'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
 
 call neobundle#end()
@@ -103,6 +106,7 @@ filetype plugin indent on
 NeoBundleCheck
 " }}}
 
+let g:clang_library_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:rooter_patterns = ['.vimroot']
 
 " let g:session_autoload = 'no'
@@ -457,6 +461,11 @@ let g:syntastic_check_on_wq = 0
 " We're all grown ups here, flake8. I'll decide how long is too long okay.
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E226,F403'
+
+let g:syntastic_html_tidy_ignore_errors = [
+            \ 'plain text isn''t allowed in <head> elements',
+            \ 'trimming empty',
+            \ ]
 " }}}
 
 " CtrlP settings {{{
@@ -580,8 +589,9 @@ augroup configgroup
   autocmd BufEnter *.sh setlocal tabstop=2
   autocmd BufEnter *.sh setlocal shiftwidth=2
   autocmd BufEnter *.sh setlocal softtabstop=2
-  autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango
+  autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango.html
   autocmd FileType htmldjango inoremap </ </<c-x><c-o><esc>a
+  autocmd FileType htmldjango :UltiSnipsAddFiletypes htmldjango.html
 augroup END
 " }}}
 
