@@ -5,10 +5,10 @@ set encoding=utf-8
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  set clipboard+=unnamed
   set t_Co=256
-  let g:clipboard_min_bytes = 1
 endif
+
+let g:clipboard_min_bytes = 1
 
 if has('vim_starting')
   if &compatible
@@ -33,7 +33,7 @@ NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'simnalamburt/vim-mundo'
 NeoBundle 'FelikZ/ctrlp-py-matcher'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 " NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'Shougo/unite.vim'
@@ -270,6 +270,7 @@ augroup Annoying
   " Stop screen flashing
   autocmd VimEnter * set visualbell t_vb=
   autocmd GUIEnter * set visualbell t_vb=
+  autocmd BufLeave * GitGutterAll
 augroup END
 " }}}
 
@@ -592,6 +593,7 @@ augroup configgroup
   autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango.html
   autocmd FileType htmldjango inoremap </ </<c-x><c-o><esc>a
   autocmd FileType htmldjango :UltiSnipsAddFiletypes htmldjango.html
+  autocmd FileType help nmap <buffer> q :q<cr>
 augroup END
 " }}}
 
