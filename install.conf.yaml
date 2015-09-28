@@ -51,12 +51,18 @@
     ~/.npmrc:
         relink: true
         path: npmrc
+    ~/.fzf:
+        relink: true
+        path: misc/fzf
 
 - shell:
     -
      command: git submodule update --init --recursive
      stdout: true
     - rm -f ~/.zcompdump*
+    -
+     command: ~/.fzf/install
+     stdout: true
     -
      command: ./post_install
      stdin: true

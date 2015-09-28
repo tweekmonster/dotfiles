@@ -48,3 +48,5 @@ fi
 
 source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # zprof
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
