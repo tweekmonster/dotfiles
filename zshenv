@@ -1,4 +1,5 @@
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

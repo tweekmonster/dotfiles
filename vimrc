@@ -6,14 +6,19 @@ set encoding=utf-8
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    set t_Co=256
+endif
+
+" Load local settings {{{1
+let s:vimrc_local = expand("$HOME/.vimrc_local")
+if filereadable(s:vimrc_local)
+    exec "source " . s:vimrc_local
 endif
 
 if has('vim_starting')
-    if &compatible
+    if !has('nvim')
+        set t_Co=256
         set nocompatible
     endif
-
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -22,6 +27,8 @@ endif
 filetype off
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleLocal ~/dotfiles/misc/vim_bundle
+NeoBundleLocal ~/.vim/bundle_dev
 
 " Theming
 NeoBundle 'chriskempson/base16-vim'
@@ -60,6 +67,8 @@ NeoBundle 'davidhalter/jedi-vim'
 
 " File Navigation
 NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'junegunn/fzf', {'build': './install'}
+" NeoBundle 'junegunn/fzf.vim'
 
 " Text Utilities
 NeoBundle 'tpope/vim-surround'
@@ -76,9 +85,12 @@ NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-line'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'chrisbra/NrrwRgn'
 
 " General Utilities
 NeoBundle 'tweekmonster/sshclip'
+NeoBundle 'tpope/vim-obsession'
+NeoBundle 'airblade/vim-rooter'
 NeoBundle 'vim-scripts/BufOnly.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim', {
@@ -90,6 +102,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'gmake',
       \    },
       \ }
+" NeoBundle 'Shougo/deoplete.nvim'
 
 call neobundle#end()
 
@@ -103,6 +116,7 @@ syntax enable
 set concealcursor=nc
 set spell
 set completeopt-=preview
+set completeopt+=noinsert
 set ttyfast
 set modelines=5
 set number
@@ -117,7 +131,11 @@ set nowrap
 set colorcolumn=80
 set hidden
 set scrolloff=5
+set incsearch
+set hlsearch
 set mouse=a
+set mousemodel=extend
+
 if &term =~ '^screen'
     set ttymouse=xterm2
 endif
@@ -168,11 +186,25 @@ endtry
 
 
 " Annoying Shit {{{1
+function! <SID>fuck_you_q()
+    if expand('%') == '[Command Line]'
+        nnoremap <buffer> q <c-U>:q<cr>
+    endif
+endfunction
+
 augroup Annoying
     autocmd!
     " Stop screen flashing
     autocmd VimEnter * set visualbell t_vb=
     autocmd GUIEnter * set visualbell t_vb=
+
+    " <insert some expression about nickels and being rich here>
+    autocmd FileType vim call <SID>fuck_you_q()
+    autocmd FileType help nmap <buffer> q :q<cr>
+
+    " Restore help buffers to their original glory
+    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help
+    autocmd FileType help exec 'sign unplace * file=' . expand('%')
 augroup END
 
 
@@ -220,14 +252,16 @@ nnoremap <space> za
 " Close file and delete its buffer
 nnoremap <silent> <leader>q :bp<bar>sp<bar>bn<bar>bd<cr>
 
+nnoremap / /\v
+vnoremap / /\v
 nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <silent> <leader>l :call <SID>toggle_line_numbers()<cr>
 nnoremap <silent> <leader>sws :call <SID>strip_white_space()<cr>
 nnoremap <silent> <leader>ml :call <SID>append_mode_line()<cr>
 
 " Navigate lines as shown on the screen
-nnoremap <nowait> j gj
-nnoremap <nowait> k gk
+nnoremap j gj
+nnoremap k gk
 
 " Split navigation
 if has('nvim')
@@ -239,16 +273,15 @@ if has('nvim')
     " Escape for nvim's terminal
     tnoremap jk <C-\><C-n>
 else
-    nnoremap j <C-W><C-J>
-    nnoremap k <C-W><C-K>
-    nnoremap l <C-W><C-L>
-    nnoremap h <C-W><C-H>
+    nnoremap <A-j> <C-W><C-J>
+    nnoremap <A-k> <C-W><C-K>
+    nnoremap <A-l> <C-W><C-L>
+    nnoremap <A-h> <C-W><C-H>
 endif
 
 " File type keymaps
 augroup vimrc_keymaps
     autocmd!
-    autocmd FileType help nmap <buffer> q :q<cr>
     autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
 augroup END
 
@@ -310,22 +343,24 @@ augroup vimrc_python
     autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
     autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
+    autocmd FileType htmldjango UltiSnipsAddFiletypes html
 augroup END
 
 
 " General Autocmds {{{1
 augroup vimrc_general
     autocmd!
-    autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
     autocmd FileType xml setlocal foldlevelstart=2
     autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>strip_white_space()
     autocmd BufEnter *.cls setlocal filetype=java
+    autocmd BufEnter zshrc,*.zsh setlocal filetype=zsh
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
     autocmd BufEnter *.sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango.html
+    autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango
 augroup END
 
 
@@ -358,7 +393,7 @@ let g:indentLine_faster = 1
 let g:indentLine_leadingSpaceChar = '∙'
 let g:indentLine_char = '│'
 let g:indentLine_first_char = '│'
-let g:indentLine_fileTypeExclude = ['qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki', 'notes']
+let g:indentLine_fileTypeExclude = ['', 'qf', 'gitv', 'tagbar', 'vimfiler', 'unite', 'help', 'man', 'gitcommit', 'vimwiki', 'notes']
 
 
 " Plugin - gitv {{{1
@@ -384,6 +419,8 @@ endfunction
 
 augroup vimrc_gitgutter
     autocmd!
+    autocmd SessionLoadPost * GitGutterAll
+    autocmd BufEnter * GitGutter
     autocmd FileType gitcommit call <SID>gitgutter_prep_refresh()
 augroup END
 
@@ -399,7 +436,9 @@ augroup vimrc_delimitMate
 augroup END
 
 
-" Plugin - multiple-cursors
+" Plugin - multiple-cursors {{{1
+let g:multi_cursor_exit_from_insert_mode = 0
+
 function! Multiple_cursors_before()
     if exists('*youcompleteme#EnableCursorMovedAutocommands')
         let g:ycm_auto_trigger = 0
@@ -446,8 +485,6 @@ call unite#custom#profile('default', 'context', {
             \   'cursor_line_highlight': 'CursorLine',
             \ })
 
-nnoremap <C-P> :<C-u>Unite -buffer-name=files -start-insert buffer file_rec/async:! -wipe -no-restore<cr>
-
 autocmd FileType unite call s:unite_settings()
 
 function! s:unite_settings()
@@ -480,14 +517,20 @@ augroup vimrc_vimfiler
     autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 augroup END
 
-nnoremap <silent> <leader>v :VimFiler -find -project -split -simple -winwidth=35 -toggle -wipe -no-restore -edit-action=choose<CR>
+nnoremap <silent> <leader>v :VimFiler -find -project -split -simple -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
 
 
 " Plugin - syntastic {{{1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_disabled_filetypes=['html.django']
 
 " We're all grown ups here, flake8. I'll decide how long is too long okay.
 let g:syntastic_python_checkers=['flake8']
@@ -503,11 +546,71 @@ augroup vimrc_syntastic
 augroup END
 
 
-" Load local settings {{{1
-let s:vimrc_local = expand("$HOME/.vimrc_local")
-if filereadable(s:vimrc_local)
-    exec "source " . s:vimrc_local
+" Plugin - Obsession {{{1
+augroup vimrc_obessession
+    autocmd!
+    autocmd VimEnter * nested
+                \ if !argc() && empty(v:this_session) && filereadable('Session.vim') |
+                \   source Session.vim |
+                \ endif
+augroup END
+
+
+" Plugin - jedi {{{1
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures = 0
+let g:jedi#max_doc_height = 10
+
+
+" Plugin - python-mode {{{1
+let g:pymode_trim_whitespaces = 0
+let g:pymode_doc = 0
+let g:pymode_folding = 0
+let g:pymode_rope = 0
+let g:pymode_lint = 0
+let g:pymode_options_max_line_length = 79
+let g:pymode_run = 0
+
+
+" Plugin - rooter {{{1
+let g:rooter_patterns = ['.vimroot']
+
+augroup vimrc_rooter
+    autocmd VimEnter * :Rooter
+augroup END
+
+
+" Plugin - supertab {{{1
+let g:SuperTabDefaultCompletionType = '<C-j>'
+let g:SuperTabCrMapping = 0
+
+
+" Plugin - deoplete {{{1
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+
+" Plugin - UltiSnips {{{1
+let g:UltiSnipsExpandTrigger = '<c-]>'
+
+
+" Plugin - FZF {{{1
+if executable('ag')
+    " Filter items through ag to respect gitignore
+    let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 endif
+
+let g:fzf_layout = {'window': 'aboveleft 10new'}
+nnoremap <c-p> :Files<cr>
+nnoremap <leader>e :BTags<cr>
+nnoremap <leader>E :BLines<cr>
+nnoremap <leader>L :Lines<cr>
+nnoremap <leader>B :Buffers<cr>
+
+augroup vimrc_fzf
+    autocmd!
+    autocmd FileType help nmap <buffer> <c-p> :Helptags<cr>
+augroup END
 
 
 " }}}
