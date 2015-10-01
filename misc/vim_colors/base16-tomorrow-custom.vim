@@ -13,9 +13,6 @@ if !has('gui_running')
   endif
 endif
 
-" highlight Search term=reverse ctermfg=18 ctermbg=3 guifg=#969896 guibg=#f0c674
-" highlight CursorLineNr term=bold ctermfg=3 ctermbg=18 gui=bold guifg=#969896 guibg=#282a2e
-
 " GUI color definitions
 let s:gui00 = "1d1f21"
 let s:gui01 = "282a2e"
@@ -147,8 +144,8 @@ call <sid>hi("ErrorMsg",      s:gui08, s:gui00, s:cterm08, s:cterm00, "")
 call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "")
 call <sid>hi("FoldColumn",    "", s:gui01, "", s:cterm01, "")
 call <sid>hi("Folded",        s:gui03, s:gui01, s:cterm03, s:cterm01, "")
-call <sid>hi("Search",        s:gui01, s:gui0A, 83, "none", "italic")
-call <sid>hi("IncSearch",     s:gui01, s:gui09, 166, "none", "italic")
+call <sid>hi("Search",        s:gui01, s:gui0A, 83, s:cterm01, "italic,underline")
+call <sid>hi("IncSearch",     s:gui01, s:gui09, 201, s:cterm01, "italic,underline")
 " call <sid>hi("Search",        s:gui01, s:gui0A, s:cterm01, s:cterm0A, "")
 " call <sid>hi("IncSearch",     s:gui01, s:gui09, s:cterm01, s:cterm09, "none")
 call <sid>hi("Italic",        "", "", "", "", "none")
@@ -189,7 +186,7 @@ call <sid>hi("TabLineSel",    s:gui0B, s:gui01, s:cterm0B, s:cterm01, "none")
 " Standard syntax highlighting
 call <sid>hi("Boolean",      s:gui09, "", s:cterm09, "", "")
 call <sid>hi("Character",    s:gui08, "", s:cterm08, "", "")
-call <sid>hi("Comment",      s:gui03, "", s:cterm03, "", "")
+call <sid>hi("Comment",      s:gui03, "", s:cterm03, "", "italic")
 call <sid>hi("Conditional",  s:gui0E, "", s:cterm0E, "", "")
 call <sid>hi("Constant",     s:gui09, "", s:cterm09, "", "")
 call <sid>hi("Define",       s:gui0E, "", s:cterm0E, "", "none")
