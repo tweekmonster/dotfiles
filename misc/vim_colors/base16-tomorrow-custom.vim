@@ -6,6 +6,12 @@
 " User must set this variable in .vimrc
 "   let g:base16_shell_path=base16-builder/output/shell/
 let g:base16_shell_path = resolve(expand('<sfile>:p:h') . '/../base16-shell/')
+let base16colorspace=256
+
+" Theme setup
+let g:colors_name = "base16-tomorrow-custom"
+hi clear
+syntax reset
 
 if !has('gui_running')
   if exists("g:base16_shell_path")
@@ -57,11 +63,6 @@ else
   let s:cterm09 = "09"
   let s:cterm0F = "14"
 endif
-
-" Theme setup
-hi clear
-syntax reset
-let g:colors_name = "base16-tomorrow"
 
 " Highlighting function
 fun <sid>hi(group, guifg, guibg, ctermfg, ctermbg, attr)
