@@ -2,6 +2,6 @@
 
 if [[ ${+terminfo[sitm]} -eq 0 || ${+terminfo[ritm]} -eq 0 ]]; then
     here=$(dirname "${${(%):-%N}:A}")
-    tic "$here/xterm-256color-italic.terminfo"
-    tic "$here/screen-256color-italic.terminfo"
+    /usr/bin/tic "$here/xterm-256color-italic.terminfo"
+    /usr/bin/tic "$here/screen-256color-italic.terminfo"
 fi
