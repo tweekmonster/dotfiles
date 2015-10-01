@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+if [[ ${+terminfo[sitm]} -eq 0 || ${+terminfo[ritm]} -eq 0 ]]; then
+    here=$(dirname "${${(%):-%N}:A}")
+    tic "$here/xterm-256color-italic.terminfo"
+    tic "$here/screen-256color-italic.terminfo"
+fi

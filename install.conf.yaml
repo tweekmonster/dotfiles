@@ -56,6 +56,7 @@
         path: misc/fzf
 
 - shell:
+    - ./misc/shell/install-terminfo
     -
      command: git submodule update --init --recursive
      stdout: true

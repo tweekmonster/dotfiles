@@ -16,7 +16,6 @@ endif
 
 if has('vim_starting')
     if !has('nvim')
-        set t_Co=256
         set nocompatible
     endif
     set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -68,7 +67,7 @@ NeoBundle 'davidhalter/jedi-vim'
 " File Navigation
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'junegunn/fzf', {'build': './install'}
-" NeoBundle 'junegunn/fzf.vim'
+NeoBundle 'junegunn/fzf.vim'
 
 " Text Utilities
 NeoBundle 'tpope/vim-surround'
@@ -140,7 +139,6 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
-
 " Spacing and Tabs {{{1
 set autoindent
 set tabstop=4
@@ -149,7 +147,7 @@ set shiftwidth=4
 set expandtab
 set backspace=2
 
-setglobal listchars=tab:▸\ ,eol:¬,trail:□
+setglobal listchars=tab:▸\ ,eol:¬,trail:$
 try
     setglobal listchars+=space:.
 catch
@@ -361,6 +359,10 @@ augroup vimrc_general
     autocmd BufEnter *.sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd BufNewFile,BufRead *.html setlocal filetype=htmldjango
+
+    if has('nvim')
+        autocmd TermOpen * setlocal nospell
+    endif
 augroup END
 
 
