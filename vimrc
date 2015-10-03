@@ -40,7 +40,7 @@ NeoBundle 'airblade/vim-gitgutter'
 
 " Snippets
 NeoBundle 'mattn/emmet-vim'
-NeoBundle 'ervandew/supertab'
+" NeoBundle 'ervandew/supertab'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'bonsaiben/bootstrap-snippets'
 NeoBundle 'SirVer/ultisnips', {
@@ -163,14 +163,22 @@ set foldnestmax=10
 
 " Backup and Undo {{{1
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+let s:backup_dir = expand('~/.cache/vim_tmp')
+if !isdirectory(s:backup_dir)
+    call mkdir(s:backup_dir, 'p', 0700)
+endif
+let s:backup_dir .= '//'  " Store backups in a full path
+exec 'set backupdir=' . s:backup_dir . ' directory=' . s:backup_dir
 set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
-set viminfo='100,<50,:20,n~/.vim/viminfo  " http://vimdoc.sourceforge.net/htmldoc/options.html#'viminfo'
+set viminfo='100,<50,:20,n~/.vim/viminfo
 
 set undofile
-set undodir=~/.vim/undo
+let s:undo_dir = expand('~/.cache/vim_undo')
+if !isdirectory(s:undo_dir)
+    call mkdir(s:undo_dir, 'p', 0700)
+endif
+exec 'set undodir=' . s:undo_dir
 
 
 " Theme {{{1
@@ -201,7 +209,7 @@ augroup Annoying
     autocmd FileType help nmap <buffer> q :q<cr>
 
     " Restore help buffers to their original glory
-    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help
+    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help noswapfile
     autocmd FileType help exec 'sign unplace * file=' . expand('%')
 augroup END
 
@@ -281,6 +289,7 @@ endif
 augroup vimrc_keymaps
     autocmd!
     autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
+    autocmd FileType html,htmldjango nnoremap <leader>tu vit"txvat"tp
 augroup END
 
 
@@ -589,12 +598,15 @@ let g:SuperTabCrMapping = 0
 
 " Plugin - deoplete {{{1
 let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 " Plugin - UltiSnips {{{1
 let g:UltiSnipsExpandTrigger = '<c-]>'
 
+
+" Plugin - emmet {{{1
+let g:user_emmet_leader_key = '<c-c>'
 
 " Plugin - FZF {{{1
 if executable('ag')

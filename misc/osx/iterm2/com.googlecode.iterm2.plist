@@ -671,11 +671,11 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>87 190 2254 1168 0 0 2560 1417 </string>
+	<string>0 53 2493 1364 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>709 388 1137 753 0 0 2560 1417 </string>
+	<string>156 97 2254 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>157 47 2254 1168 0 0 2560 1417 </string>
+	<string>671 444 880 580 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1359,7 +1359,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color</string>
+			<string>xterm-256color-italic</string>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -1460,6 +1460,8 @@
 	<false/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>2</integer>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PassOnControlClick</key>
 	<true/>
 	<key>PasteFromClipboard</key>
@@ -1524,7 +1526,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-09-28T06:47:42Z</date>
+	<date>2015-10-03T01:02:11Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
