@@ -1,9 +1,8 @@
 # zmodload zsh/zprof
 # oh-my-zsh covers the other history related options
+dotfiles=$(dirname "${${(%):-%N}:A}")
 setopt hist_ignore_all_dups
 setopt correct
-
-dotfiles=$(dirname "${${(%):-%N}:A}")
 fpath=("${dotfiles}/zsh/zsh-completions/src" $fpath)
 
 # Begin loading oh-my-zsh
@@ -40,14 +39,14 @@ fi
 
 source "${dotfiles}/zsh/keyboard.zsh"
 
-BASE16_SHELL="${dotfiles}/misc/base16-shell/base16-tomorrow.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
 if [[ $OSTYPE =~ "darwin" ]]; then
     source "${dotfiles}/zsh/osx.zsh"
 fi
 
 source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # zprof
+
+BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
