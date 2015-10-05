@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+zmodload zsh/zprof
 # oh-my-zsh covers the other history related options
 dotfiles=$(dirname "${${(%):-%N}:A}")
 setopt hist_ignore_all_dups
@@ -10,19 +10,17 @@ ZSH="${dotfiles}/zsh/oh-my-zsh"
 ZSH_THEME=""
 DISABLE_AUTO_UPDATE=true
 plugins=(
-    catimg
     pip
     python
     sudo
     supervisor
     systemadmin
-    pyenv
     tmux
 )
 
 source "${ZSH}/oh-my-zsh.sh"
 
-source "${dotfiles}/zsh/zaw/zaw.zsh"
+# source "${dotfiles}/zsh/zaw/zaw.zsh"
 source "${dotfiles}/zsh/aliases.zsh"
 source "${dotfiles}/zsh/venv.zsh"
 source "${dotfiles}/zsh/zsh-duckduckgo/duckduckgo.zsh"
@@ -43,10 +41,12 @@ if [[ $OSTYPE =~ "darwin" ]]; then
     source "${dotfiles}/zsh/osx.zsh"
 fi
 
-source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # zprof
 
 # BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+zprof

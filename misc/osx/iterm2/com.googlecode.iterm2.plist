@@ -673,7 +673,7 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>102 160 2211 1168 0 0 2560 1417 </string>
+	<string>102 160 2254 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>156 475 490 790 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2155,7 +2155,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Mark Indicators</key>
-			<false/>
+			<true/>
 			<key>Silence Bell</key>
 			<true/>
 			<key>Smart Cursor Color</key>
@@ -2256,7 +2256,7 @@
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
-			<string>xterm-256color-italic</string>
+			<string>xterm-256color</string>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -2431,7 +2431,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-04T15:28:30Z</date>
+	<date>2015-10-05T12:54:02Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -2503,7 +2503,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20151002-nightly</string>
+	<string>2.9.20151005-nightly</string>
 	<key>kCommandHistoryHasEverBeenUsed</key>
 	<true/>
 </dict>

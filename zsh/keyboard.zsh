@@ -29,18 +29,18 @@ bindkey -M vicmd '[1;9D' vi-backward-blank-word
 bindkey -M vicmd '[1;9C' vi-forward-blank-word
 
 # Zaw
-bindkey '^R' zaw-history
-bindkey '^Z' zaw
-bindkey -M filterselect '\e' send-break
-bindkey -M filterselect '^R' down-line-or-history
-bindkey -M filterselect '^S' up-line-or-history
-bindkey -M filterselect '^E' accept-search
-
-zstyle ':filter-select:highlight' matched fg=yellow,standout
-zstyle ':filter-select' max-lines 15
-zstyle ':filter-select' rotate-list yes
-zstyle ':filter-select' case-insensitive yes
-zstyle ':filter-select' extended-search yes
+# bindkey '^R' zaw-history
+# bindkey '^Z' zaw
+# bindkey -M filterselect '\e' send-break
+# bindkey -M filterselect '^R' down-line-or-history
+# bindkey -M filterselect '^S' up-line-or-history
+# bindkey -M filterselect '^E' accept-search
+#
+# zstyle ':filter-select:highlight' matched fg=yellow,standout
+# zstyle ':filter-select' max-lines 15
+# zstyle ':filter-select' rotate-list yes
+# zstyle ':filter-select' case-insensitive yes
+# zstyle ':filter-select' extended-search yes
 
 function history-search-end() {
     # https://github.com/johan/zsh/blob/master/Functions/Zle/history-search-end

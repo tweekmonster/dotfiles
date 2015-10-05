@@ -1,5 +1,5 @@
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-export FZF_DEFAULT_COMMAND='ag -l -g ""'
+zmodload zsh/zprof
+dotfiles=$(dirname "${${(%):-%N}:A}")
 
 if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -19,12 +19,17 @@ if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
     fi
 fi
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export FZF_TMUX=0
+if hash ag 2>/dev/null; then
+    export FZF_DEFAULT_COMMAND='ag -l -g ""'
+fi
+
 export EDITOR=vim
 
-# dotfiles=$(dirname "${${(%):-%N}:A}")
-# Done here so that the $PATH is updated with pyenv
-# source "${dotfiles}/zsh/oh-my-zsh/plugins/pyenv/pyenv.plugin.zsh"
+source "${dotfiles}/zsh/pyenv.zsh"
 
 if [[ -e "${HOME}/.zshenv_local" ]]; then
     source "${HOME}/.zshenv_local"
 fi
+zprof
