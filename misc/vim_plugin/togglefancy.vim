@@ -17,4 +17,4 @@ function! <SID>Toggle()
     endif
 endfunc
 
-nmap <silent> <leader>p :call <SID>Toggle()<CR>
+" nmap <silent> <leader>p :call <SID>Toggle()<CR>

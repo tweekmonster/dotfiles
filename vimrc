@@ -30,7 +30,6 @@ NeoBundleLocal ~/dotfiles/misc/vim_bundle
 NeoBundleLocal ~/.vim/bundle_dev
 
 " Theming
-NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'bling/vim-airline'
 
 " Git Related
@@ -40,7 +39,6 @@ NeoBundle 'airblade/vim-gitgutter'
 
 " Snippets
 NeoBundle 'mattn/emmet-vim'
-" NeoBundle 'ervandew/supertab'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'bonsaiben/bootstrap-snippets'
 NeoBundle 'SirVer/ultisnips', {
@@ -59,6 +57,7 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'nono/jquery.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'groenewege/vim-less'
+NeoBundle 'tmux-plugins/vim-tmux'
 
 " Python
 NeoBundle 'klen/python-mode'
@@ -87,7 +86,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'chrisbra/NrrwRgn'
 
 " General Utilities
-NeoBundle 'tweekmonster/sshclip'
+" NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'tpope/vim-obsession'
 NeoBundle 'airblade/vim-rooter'
 NeoBundle 'vim-scripts/BufOnly.vim'
@@ -182,11 +181,9 @@ exec 'set undodir=' . s:undo_dir
 
 
 " Theme {{{1
-set background=dark
-let base16colorspace=256
 try
     " Ignore the theme doesn't exist for dotfiles installation
-    colorscheme base16-tomorrow-custom
+    colorscheme base16_custom
 catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
@@ -209,7 +206,7 @@ augroup Annoying
     autocmd FileType help nmap <buffer> q :q<cr>
 
     " Restore help buffers to their original glory
-    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help noswapfile
+    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help noswapfile nobuflisted
     autocmd FileType help exec 'sign unplace * file=' . expand('%')
 augroup END
 
@@ -380,7 +377,7 @@ let g:clipboard_min_bytes = 1
 
 
 " Plugin - Airline {{{1
-let g:airline_theme = 'base16_tomorrow'
+let g:airline_theme = 'base16_custom'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
@@ -482,7 +479,7 @@ let g:ctrlp_mruf_exclude = '\.git/*\|/tmp/.*\|/temp/.*\|/var/folders/.*\|/usr/lo
 " Plugin - Unite {{{1
 let g:unite_enable_start_insert = 1
 let g:unite_split_rule = "topleft"
-let g:unite_force_overwrite_statusline = 0
+let g:unite_force_overwrite_statusline = 1
 let g:unite_winheight = 10
 
 call unite#custom_source('file_rec/async,file_mru,file,buffer,grep',

@@ -552,7 +552,7 @@
 	<key>DimBackgroundWindows</key>
 	<false/>
 	<key>DimInactiveSplitPanes</key>
-	<true/>
+	<false/>
 	<key>DimOnlyText</key>
 	<false/>
 	<key>DisableAppNap</key>
@@ -562,6 +562,8 @@
 	<key>DisallowCopyEmptyString</key>
 	<true/>
 	<key>EnableRendezvous</key>
+	<false/>
+	<key>ExtraThinText</key>
 	<false/>
 	<key>FocusFollowsMouse</key>
 	<false/>
@@ -596,7 +598,7 @@
 	<key>IRMemory</key>
 	<integer>4</integer>
 	<key>JobName</key>
-	<true/>
+	<false/>
 	<key>LeftCommand</key>
 	<integer>7</integer>
 	<key>LeftOption</key>
@@ -671,11 +673,11 @@
 	<key>NSWindow Frame com.apple.typography_panel_Input-Regular</key>
 	<string>1682 476 260 509 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>52 155 2416 1168 0 0 2560 1417 </string>
+	<string>102 160 2211 1168 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>156 97 2254 1168 0 0 2560 1417 </string>
+	<string>156 475 490 790 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>671 444 880 580 0 0 2560 1417 </string>
+	<string>813 217 700 972 0 0 2560 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5005CFDE-607D-40D8-9785-003EE1163B49</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -912,7 +914,7 @@
 			<key>Blend</key>
 			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
@@ -1708,7 +1710,7 @@
 			<key>Blend</key>
 			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
 			<true/>
 			<key>Blur</key>
@@ -2250,7 +2252,7 @@
 				</dict>
 			</array>
 			<key>Sync Title</key>
-			<false/>
+			<true/>
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
@@ -2289,6 +2291,10 @@
 	</array>
 	<key>NoSyncLastTipTime</key>
 	<real>460355679.13458902</real>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncNewWindowOrTabFromTmuxOpensTmux</key>
 	<true/>
 	<key>NoSyncNewWindowOrTabFromTmuxOpensTmux_selection</key>
@@ -2425,7 +2431,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-03T01:02:11Z</date>
+	<date>2015-10-04T15:28:30Z</date>
 	<key>SavePasteHistory</key>
 	<true/>
 	<key>Secure Input</key>
@@ -2433,7 +2439,7 @@
 	<key>Show Toolbelt</key>
 	<false/>
 	<key>ShowBookmarkName</key>
-	<false/>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SmartPlacement</key>

@@ -46,7 +46,7 @@ fi
 source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 # zprof
 
-BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

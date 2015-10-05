@@ -95,7 +95,13 @@ function toggle-sudo() {
     fi
 }
 
+b16_init=0
+BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
 function reset-prompt() {
+    # if [[ b16_init -eq 0 ]]; then
+    #     b16_init=1
+    #     source $BASE16_SHELL
+    # fi
     # So prompt can be updated with vi-mode state
     zle .reset-prompt
 }
