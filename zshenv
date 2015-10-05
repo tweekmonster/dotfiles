@@ -1,4 +1,3 @@
-zmodload zsh/zprof
 dotfiles=$(dirname "${${(%):-%N}:A}")
 
 if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
@@ -32,4 +31,3 @@ source "${dotfiles}/zsh/pyenv.zsh"
 if [[ -e "${HOME}/.zshenv_local" ]]; then
     source "${HOME}/.zshenv_local"
 fi
-zprof

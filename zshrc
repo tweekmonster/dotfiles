@@ -1,4 +1,4 @@
-zmodload zsh/zprof
+# zmodload zsh/zprof
 # oh-my-zsh covers the other history related options
 dotfiles=$(dirname "${${(%):-%N}:A}")
 setopt hist_ignore_all_dups
@@ -49,4 +49,4 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source "${dotfiles}/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-zprof
+# zprof
