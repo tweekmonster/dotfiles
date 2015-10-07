@@ -7,42 +7,17 @@ chmod 700 "${vim_undo}"
 [[ ! -e "${HOME}/.nvim" ]] && ln -s "${HOME}/.vim" "${HOME}/.nvim"
 [[ ! -e "${HOME}/.nvimrc" ]] && ln -s "${HOME}/.vimrc" "${HOME}/.nvimrc"
 
-exit 0
-
-ycm_path="${HOME}/.vim/bundle/YouCompleteMe"
-
-if [[ "${1}" != "force" ]]; then
-    ycm_hash=""
-
-    if [[ -d "${ycm_path}" ]]; then
-        ycm_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
-    fi
-
-    vim +NeoBundleInstall +qall
-
-    ycm_c_hash=$(git --git-dir="${ycm_path}/.git" --work-tree="${ycm_path}" rev-parse HEAD)
-
-    if [[ "${ycm_hash}" == "${ycm_c_hash}" ]]; then
-        exit 0
-    fi
+vim_bundle="${HOME}/.vim/bundle"
+neobundle="${vim_bundle}/neobundle.vim"
+mkdir -p "$vim_bundle"
+if [[ -L "$neobundle" ]]; then
+    rm -f "$neobundle"
 fi
 
-penv=$(which pyenv)
-if [[ -n $penv ]]; then
-    eval "$(pyenv init -)"
-    pyenv shell system
+if [[ ! -d "$neobundle" ]]; then
+    cd "$vim_bundle"
+    git clone https://github.com/Shougo/neobundle.vim.git
+else
+    cd "$neobundle"
+    git pull origin master
 fi
-
-# Take over the YCM build since it can't figure out pyenv
-# When ran alone, post_install does fine if `pyenv shell system` is set
-# but when ran with dotbot, it seems the environment is lost and YCM ends up
-# finding the wrong python version
-cd ~/.vim/bundle/YouCompleteMe
-py=$(which python)
-build_file="${ycm_path}/third_party/ycmd/build.py"
-
-$py "${build_file}" --clang-completer
-
-rm -f python/*ycm_core.* &> /dev/null
-rm -f python/*ycm_client_support.* &> /dev/null
-rm -f python/*clang*.* &> /dev/null
