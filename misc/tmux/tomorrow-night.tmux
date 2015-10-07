@@ -15,10 +15,11 @@ set -g pane-active-border-bg "colour0"
 set -g pane-border-fg "colour244"
 set -g pane-border-bg "colour0"
 
-set -g message-fg "colour21"
-set -g message-bg "colour19"
-set -g message-command-fg "colour255"
-set -g message-command-bg "colour19"
+set -g message-fg "colour54"
+set -g message-bg "colour195"
+
+set -g message-command-fg "colour54"
+set -g message-command-bg "colour195"
 
 setw -g window-status-fg "colour54"
 setw -g window-status-bg "colour225"
@@ -33,3 +34,5 @@ setw -g window-status-activity-fg "colour2"
 
 set -g status-left "#[fg=colour231,bg=colour161]  tmux  #[fg=default,bg=default]    "
 set -g status-right "#[fg=colour242,bg=colour226] %Y-%m-%d %H:%M #[fg=colour240,bg=colour220] #(echo $USER)@#h #S:#I:#P "
+
+#  vim: set ft=tmux ts=4 sw=4 tw=0 et :
