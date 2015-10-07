@@ -18,21 +18,9 @@
 	path = zsh/nanofish
 	url = https://github.com/tweekmonster/nanofish.git
     branch = master
-[submodule "zsh/zaw"]
-	path = zsh/zaw
-	url = https://github.com/zsh-users/zaw.git
-    branch = master
 [submodule "zsh/zsh-duckduckgo"]
 	path = zsh/zsh-duckduckgo
 	url = https://github.com/tweekmonster/zsh-duckduckgo.git
-    branch = master
-[submodule "misc/base16-shell"]
-	path = misc/base16-shell
-	url = https://github.com/chriskempson/base16-shell.git
-    branch = master
-[submodule "misc/neobundle.vim"]
-	path = misc/neobundle.vim
-	url = https://github.com/Shougo/neobundle.vim
     branch = master
 [submodule "misc/fzf"]
 	path = misc/fzf
