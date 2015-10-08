@@ -27,7 +27,7 @@ filetype off
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundleLocal ~/dotfiles/misc/vim_bundle
-NeoBundleLocal ~/.vim/bundle_dev
+NeoBundleLocal ~/dev/vim
 
 " Theming
 NeoBundle 'bling/vim-airline'
@@ -60,8 +60,8 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'tmux-plugins/vim-tmux'
 
 " Python
-" NeoBundle 'klen/python-mode'
-" NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'klen/python-mode'
+NeoBundle 'davidhalter/jedi-vim'
 
 " File Navigation
 NeoBundle 'Shougo/vimfiler.vim'
@@ -86,10 +86,6 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'chrisbra/NrrwRgn'
 
 " General Utilities
-NeoBundle 'Valloric/YouCompleteMe', {
- \  'build': './install.py --clang-completer',
- \ }
-
 " NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'tpope/vim-obsession'
 NeoBundle 'airblade/vim-rooter'
@@ -608,27 +604,6 @@ let g:UltiSnipsExpandTrigger = '<c-]>'
 
 " Plugin - emmet {{{1
 let g:user_emmet_leader_key = '<c-c>'
-
-
-" Plugin - YouCompleteMe {{{1
-let g:ycm_confirm_extra_conf = 0
-
-function! Multiple_cursors_before()
-    if exists('*youcompleteme#EnableCursorMovedAutocommands')
-        let g:ycm_auto_trigger = 0
-        let s:old_ycm_whitelist = g:ycm_filetype_whitelist
-        let g:ycm_filetype_whitelist = {}
-        call youcompleteme#DisableCursorMovedAutocommands()
-    endif
-endfunction
-
-function! Multiple_cursors_after()
-    if exists('*youcompleteme#EnableCursorMovedAutocommands')
-        let g:ycm_auto_trigger = 1
-        let g:ycm_filetype_whitelist = s:old_ycm_whitelist
-        call youcompleteme#EnableCursorMovedAutocommands()
-    endif
-endfunction
 
 
 " Plugin - FZF {{{1
