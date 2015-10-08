@@ -7,8 +7,9 @@ function workoncwd {
     if [[ ${#venv} -gt 0 ]]; then
         new_venv=$(cat "${venv[-1]:a}")
         if [[ -n "$new_venv" ]]; then
-            pyenv prefix $new_venv >/dev/null 2>&1 || exit 0
-            [[ "$new_venv" != "${VIRTUAL_ENV:t}" ]] && pyenv activate "$new_venv"
+            if pyenv prefix $new_venv >/dev/null 2>&1; then
+                [[ "$new_venv" != "${VIRTUAL_ENV:t}" ]] && pyenv activate "$new_venv"
+            fi
         fi
     fi
 }
