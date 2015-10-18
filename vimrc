@@ -36,6 +36,7 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'shuber/vim-promiscuous'
 
 " Snippets
 NeoBundle 'mattn/emmet-vim'
@@ -58,6 +59,7 @@ NeoBundle 'nono/jquery.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'tmux-plugins/vim-tmux'
+NeoBundle 'fatih/vim-go'
 
 " Python
 NeoBundle 'klen/python-mode'
@@ -76,7 +78,7 @@ NeoBundle 'tpope/vim-abolish'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'Yggdroot/indentLine'
+" NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'michaeljsmith/vim-indent-object'
 NeoBundle 'edsono/vim-matchit'
 NeoBundle 'kana/vim-textobj-user'
@@ -87,6 +89,7 @@ NeoBundle 'chrisbra/NrrwRgn'
 
 " General Utilities
 " NeoBundle 'tweekmonster/sshclip'
+NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'tpope/vim-obsession'
 NeoBundle 'airblade/vim-rooter'
 NeoBundle 'vim-scripts/BufOnly.vim'
@@ -114,6 +117,7 @@ syntax enable
 set concealcursor=nc
 set spell
 set completeopt-=preview
+set completeopt+=menuone
 silent! set completeopt+=noinsert
 set ttyfast
 set modelines=5
@@ -146,9 +150,9 @@ set shiftwidth=4
 set expandtab
 set backspace=2
 
-setglobal listchars=tab:▸\ ,eol:¬,trail:$
+set listchars=tab:▸\ ,eol:¬,trail:$
 try
-    setglobal listchars+=space:.
+    set listchars+=space:.
 catch
 endtry
 
@@ -242,9 +246,14 @@ inoremap <expr> jk col('.') == 1 ? '<esc>' : '<esc>l'
 imap JK jk
 imap Jk jk
 
+imap <Nul> <Space>
+
 " No idea what's causing it, but pressing <esc> leads to a delay, possibly
 " waiting for more keys.  I'm not having it.
 inoremap <nowait> <esc> <esc>
+
+inoremap <expr> <c-j> pumvisible() ? "\<c-n>" : "\<c-j>"
+inoremap <expr> <c-k> pumvisible() ? "\<c-p>" : "\<c-k>"
 
 " Highlight last inserted text
 nnoremap gV `[v`]
@@ -525,7 +534,7 @@ augroup vimrc_vimfiler
     autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 augroup END
 
-nnoremap <silent> <leader>v :VimFiler -find -project -split -simple -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
+nnoremap <silent> <leader>v :VimFiler -find -project -split -explorer -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
 
 
 " Plugin - syntastic {{{1
@@ -606,14 +615,39 @@ let g:UltiSnipsExpandTrigger = '<c-]>'
 let g:user_emmet_leader_key = '<c-c>'
 
 
+" Plugin - go-vim {{{1
+let g:go_fmt_command = "goimports"
+
+
+" Plugin - tmux-navigator {{{1
+let g:tmux_navigator_no_mappings = 1
+
+if has('nvim')
+    nnoremap <silent> <m-h> :TmuxNavigateLeft<cr>
+    nnoremap <silent> <m-j> :TmuxNavigateDown<cr>
+    nnoremap <silent> <m-k> :TmuxNavigateUp<cr>
+    nnoremap <silent> <m-l> :TmuxNavigateRight<cr>
+else
+    nnoremap <silent> <a-h> :TmuxNavigateLeft<cr>
+    nnoremap <silent> <a-j> :TmuxNavigateDown<cr>
+    nnoremap <silent> <a-k> :TmuxNavigateUp<cr>
+    nnoremap <silent> <a-l> :TmuxNavigateRight<cr>
+endif
+
 " Plugin - FZF {{{1
 if executable('ag')
     " Filter items through ag to respect gitignore
     let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 endif
 
+function! <SID>save_history()
+
+endfunction
+
+autocmd BufReadPre * call <SID>save_history()
+
 let g:fzf_layout = {'window': 'aboveleft 10new'}
-nnoremap <c-p> :Files<cr>
+nnoremap <c-p> :FilesMru<cr>
 nnoremap <leader>e :BTags<cr>
 nnoremap <leader>E :BLines<cr>
 nnoremap <leader>L :Lines<cr>

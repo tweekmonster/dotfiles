@@ -19,7 +19,8 @@ if [[ -z $ZSHENV_PATH_SET || -n $VIRTUAL_ENV ]]; then
 fi
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-export FZF_TMUX=0
+# export FZF_TMUX=0
+export FZF_TMUX_HEIGHT=20
 if hash ag 2>/dev/null; then
     export FZF_DEFAULT_COMMAND='ag -l -g ""'
 fi
