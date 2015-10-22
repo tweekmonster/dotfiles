@@ -60,6 +60,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'tmux-plugins/vim-tmux'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'elzr/vim-json'
 
 " Python
 NeoBundle 'klen/python-mode'
@@ -174,7 +175,12 @@ let s:backup_dir .= '//'  " Store backups in a full path
 exec 'set backupdir=' . s:backup_dir . ' directory=' . s:backup_dir
 set backupskip=/tmp/*,/private/tmp/*
 set writebackup
-set viminfo='100,<50,:20,n~/.vim/viminfo
+set viminfo='100,<50,:20
+if has('nvim')
+    set viminfo+=n~/.vim/nviminfo
+else
+    set viminfo+=n~/.vim/viminfo
+endif
 
 set undofile
 let s:undo_dir = expand('~/.cache/vim_undo')
@@ -193,6 +199,8 @@ endtry
 
 
 " Annoying Shit {{{1
+let g:vim_json_syntax_conceal = 0
+
 function! <SID>fuck_you_q()
     if expand('%') == '[Command Line]'
         nnoremap <buffer> q <c-U>:q<cr>
