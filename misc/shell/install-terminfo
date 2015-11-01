@@ -12,6 +12,16 @@ echo '\tritm=\E[23m,' >> $tmpfile
 /usr/bin/tic $tmpfile
 
 rm -f $tmpfile
+
+cat <<EOF|/usr/bin/tic -x -
+tmux|tmux terminal multiplexer,
+	ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
+	use=xterm+tmux, use=screen,
+
+tmux-256color|tmux with 256 colors,
+	use=xterm-256color, use=tmux,
+EOF
+
 # if [[ ${+terminfo[sitm]} -eq 0 || ${+terminfo[ritm]} -eq 0 ]]; then
 #     here=$(dirname "${${(%):-%N}:A}")
 #     /usr/bin/tic "$here/xterm-256color-italic.terminfo"

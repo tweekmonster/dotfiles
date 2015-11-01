@@ -60,6 +60,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'tmux-plugins/vim-tmux'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'garyburd/go-explorer'
 NeoBundle 'elzr/vim-json'
 
 " Python
@@ -542,7 +543,7 @@ augroup vimrc_vimfiler
     autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 augroup END
 
-nnoremap <silent> <leader>v :VimFiler -find -project -split -explorer -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
+nnoremap <silent> <leader>v :VimFiler -find -project -split -simple -winwidth=35 -toggle -force-quit -edit-action=choose<CR>
 
 
 " Plugin - syntastic {{{1
@@ -588,6 +589,8 @@ let g:jedi#max_doc_height = 10
 
 
 " Plugin - python-mode {{{1
+" Not sure why I'm still using python-mode
+let g:pymode_virtualenv = 0
 let g:pymode_trim_whitespaces = 0
 let g:pymode_doc = 0
 let g:pymode_folding = 0
@@ -612,6 +615,10 @@ let g:SuperTabCrMapping = 0
 
 " Plugin - deoplete {{{1
 let g:deoplete#enable_at_startup = 1
+augroup vimrc_deoplete
+    autocmd!
+    autocmd FileType go let b:deoplete_disable_auto_complete=1
+augroup END
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
@@ -624,7 +631,18 @@ let g:user_emmet_leader_key = '<c-c>'
 
 
 " Plugin - go-vim {{{1
+let g:go_autodetect_gopath = 1
+let g:go_auto_type_info = 1
+let g:go_fmt_fail_silently = 0
 let g:go_fmt_command = "goimports"
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_extra_types = 0
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_snippet_engine = "neosnippet"
 
 
 " Plugin - tmux-navigator {{{1

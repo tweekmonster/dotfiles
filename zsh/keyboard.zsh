@@ -95,8 +95,8 @@ function toggle-sudo() {
     fi
 }
 
-b16_init=0
-BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
+# b16_init=0
+# BASE16_SHELL="$HOME/dotfiles/misc/shell/base16.sh"
 function reset-prompt() {
     # if [[ b16_init -eq 0 ]]; then
     #     b16_init=1

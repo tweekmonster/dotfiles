@@ -7,6 +7,13 @@ chmod 700 "${vim_undo}"
 [[ ! -e "${HOME}/.nvim" ]] && ln -s "${HOME}/.vim" "${HOME}/.nvim"
 [[ ! -e "${HOME}/.nvimrc" ]] && ln -s "${HOME}/.vimrc" "${HOME}/.nvimrc"
 
+nvim_dir=${XDG_CONFIG_HOME:=$HOME/.config}
+if [[ ! -e "$nvim_dir/nvim/init.vim" ]]; then
+    mkdir -p "$nvim_dir"
+    ln -s "$HOME/.vim" "$nvim_dir/nvim"
+    ln -s "$HOME/.vimrc" "$nvim_dir/nvim/init.vim"
+fi
+
 vim_bundle="${HOME}/.vim/bundle"
 neobundle="${vim_bundle}/neobundle.vim"
 mkdir -p "$vim_bundle"
