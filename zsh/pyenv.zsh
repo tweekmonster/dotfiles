@@ -20,7 +20,7 @@ for pydir in "${pyenvdirs[@]}"; do
         export PATH="${pydir}/bin:$PATH"
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
-        chpwd_functions+=(workoncwd)
+        # chpwd_functions+=(workoncwd)
         break
     fi
 done

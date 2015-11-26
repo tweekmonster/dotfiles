@@ -7,7 +7,7 @@
 "
 " Awesome.
 
-if (&ft == "htmldjango")
+if (&ft == "htmldjango" || &ft == "htmljinja" || &ft == "jinja")
     if exists("loaded_matchit")
         let b:match_ignorecase = 1
         let b:match_skip = 's:Comment'

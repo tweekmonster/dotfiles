@@ -62,10 +62,13 @@ NeoBundle 'tmux-plugins/vim-tmux'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'garyburd/go-explorer'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'icook/Vim-Jinja2-Syntax'
+NeoBundle 'cespare/vim-toml'
 
 " Python
 NeoBundle 'klen/python-mode'
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'fisadev/vim-isort'
 
 " File Navigation
 NeoBundle 'Shougo/vimfiler.vim'
@@ -90,6 +93,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'chrisbra/NrrwRgn'
 
 " General Utilities
+NeoBundle 'editorconfig/editorconfig-vim'
 " NeoBundle 'tweekmonster/sshclip'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'tpope/vim-obsession'
@@ -304,7 +308,7 @@ endif
 augroup vimrc_keymaps
     autocmd!
     autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
-    autocmd FileType html,htmldjango nnoremap <leader>tu vit"txvat"tp
+    autocmd FileType html,htmldjango,jinja nnoremap <leader>tu vit"txvat"tp
 augroup END
 
 
@@ -363,9 +367,10 @@ let python_highlight_all = 1
 
 augroup vimrc_python
     autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
-    autocmd FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+    autocmd FileType python,toml let b:delimitMate_nesting_quotes = ['"', "'"]
     autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
-    autocmd FileType htmldjango UltiSnipsAddFiletypes html
+    autocmd FileType htmldjango,jinja UltiSnipsAddFiletypes html
+    autocmd FileType jinja UltiSnipsAddFiletypes jinja2
 augroup END
 
 
@@ -465,7 +470,11 @@ augroup END
 " Plugin - multiple-cursors {{{1
 let g:multi_cursor_exit_from_insert_mode = 0
 
+let s:old_omni = ''
+
 function! Multiple_cursors_before()
+    let s:old_omni = &omnifunc
+    let &omnifunc = ''
     if exists('*youcompleteme#EnableCursorMovedAutocommands')
         let g:ycm_auto_trigger = 0
         let s:old_ycm_whitelist = g:ycm_filetype_whitelist
@@ -475,6 +484,8 @@ function! Multiple_cursors_before()
 endfunction
 
 function! Multiple_cursors_after()
+    let &omnifunc = s:old_omni
+    let s:old_omni = ''
     if exists('*youcompleteme#EnableCursorMovedAutocommands')
         let g:ycm_auto_trigger = 1
         let g:ycm_filetype_whitelist = s:old_ycm_whitelist
@@ -561,6 +572,8 @@ let g:syntastic_disabled_filetypes=['html.django']
 " We're all grown ups here, flake8. I'll decide how long is too long okay.
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_python_flake8_args='--ignore=E501,E226,F403'
+
+let g:syntastic_rst_checkers=['rstcheck']
 
 let g:syntastic_html_tidy_ignore_errors = [
             \ 'plain text isn''t allowed in <head> elements',
@@ -659,6 +672,33 @@ else
     nnoremap <silent> <a-k> :TmuxNavigateUp<cr>
     nnoremap <silent> <a-l> :TmuxNavigateRight<cr>
 endif
+
+
+" Plugin - surround {{{1
+" echo char2nr("<key>")
+" insert mode: ctrl-c, then digigraph
+let g:surround_49 = "‘\r’"
+let g:surround_50 = "“\r”"
+let g:surround_51 = "'''\r'''"
+let g:surround_52 = '"""\r"""'
+
+
+" Plugin - editorconfig {{{1
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+function! VimrcEditorConfigFiletypeHook(config)
+    if has_key(a:config, 'vim_filetype')
+        let &filetype = a:config['vim_filetype']
+    endif
+
+    return 0   " Return 0 to show no error happened
+endfunction
+
+call editorconfig#AddNewHook(function('VimrcEditorConfigFiletypeHook'))
+
+
+" Plugin - html5 {{{1
+let g:html_exclude_tags = ['source']
+
 
 " Plugin - FZF {{{1
 if executable('ag')
