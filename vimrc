@@ -575,6 +575,8 @@ let g:syntastic_python_flake8_args='--ignore=E501,E226,F403'
 
 let g:syntastic_rst_checkers=['rstcheck']
 
+let g:syntastic_tex_checkers=['chktex']
+
 let g:syntastic_html_tidy_ignore_errors = [
             \ 'plain text isn''t allowed in <head> elements',
             \ 'trimming empty',
@@ -698,6 +700,13 @@ call editorconfig#AddNewHook(function('VimrcEditorConfigFiletypeHook'))
 
 " Plugin - html5 {{{1
 let g:html_exclude_tags = ['source']
+
+
+" Plugin - coffee-script {{{1
+augroup vimrc_coffeescript
+    autocmd!
+    autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent nofoldenable
+augroup END
 
 
 " Plugin - FZF {{{1

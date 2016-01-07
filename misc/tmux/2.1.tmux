@@ -11,5 +11,6 @@ bind -n WheelDownPane select-pane -t= \; send-keys -M
 # bind-key -t vi-copy WheelDownPane halfpage-up
 # bind-key -t vi-copy WheelUpPane halfpage-down
 set-window-option -g window-style 'bg=#111111'
+# set-window-option -g window-style 'bg=#000000'
 set-window-option -g window-active-style 'bg=#000000'
 # set-window-option -g pane-active-border-style ''
