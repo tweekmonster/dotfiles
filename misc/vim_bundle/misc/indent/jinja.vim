@@ -64,21 +64,21 @@ function! GetJinjaIndent(...)
 
     let pnb_blockstart = pnb =~# tagstart . l:blocktags . tagend
     let pnb_blockend   = pnb =~# tagstart . 'end' . l:blocktags . tagend
-    let pnb_blockmid   = pnb =~# tagstart . midtags . tagend
+    let pnb_blockmid   = pnb =~# tagstart . s:midtags . tagend
 
     let cur_blockstart = cur =~# tagstart . l:blocktags . tagend
     let cur_blockend   = cur =~# tagstart . 'end' . l:blocktags . tagend
-    let cur_blockmid   = cur =~# tagstart . midtags . tagend
+    let cur_blockmid   = cur =~# tagstart . s:midtags . tagend
 
-    if pnb_blockstart && !pnb_blockend
+    if pnb_blockstart && !pnb_blockend && pnb_blockstart != pnb_blockend
         let ind = ind + &sw
-    elseif pnb_blockmid && !pnb_blockend
+    elseif pnb_blockmid && !pnb_blockend && pnb_blockmid != pnb_blockstart && pnb_blockmid != pnb_blockend
         let ind = ind + &sw
     endif
 
-    if cur_blockend && !cur_blockstart
+    if cur_blockend && !cur_blockstart && cur_blockend != cur_blockstart
         let ind = ind - &sw
-    elseif cur_blockmid
+    elseif cur_blockmid && cur_blockmid != cur_blockstart && cur_blockmid != cur_blockend
         let ind = ind - &sw
     endif
 

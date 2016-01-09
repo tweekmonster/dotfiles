@@ -23,6 +23,8 @@ endif
 let b:html_indentexpr = &l:indentexpr
 
 let b:did_indent = 1
+let s:blocktags = ['block', 'for', 'if', 'with', 'autoescape', 'comment', 'filter', 'spaceless', 'verbatim']
+let s:midtags = '\(empty\|else\|elif\)'
 
 setlocal indentexpr=GetDjangoIndent()
 setlocal indentkeys=o,O,*<Return>,{,},o,O,!^F,<>>
@@ -48,29 +50,29 @@ function! GetDjangoIndent(...)
     let pnb = getline(lnum)
     let cur = getline(v:lnum)
 
-    let tagstart = '.*' . '{%\s*'
-    let tagend = '.*%}' . '.*'
+    let tagstart = '.*' . '{%-\?\s*'
+    let tagend = '.*-\?%}' . '.*'
 
-    let blocktags = '\(block\|for\|if\|with\|autoescape\|comment\|filter\|spaceless\|verbatim\)'
-    let midtags = '\(empty\|else\|elif\)'
+    let l:blocktags = join(s:blocktags, '\|')
+    let l:blocktags = '\('.l:blocktags.'\)'
 
-    let pnb_blockstart = pnb =~# tagstart . blocktags . tagend
-    let pnb_blockend   = pnb =~# tagstart . 'end' . blocktags . tagend
-    let pnb_blockmid   = pnb =~# tagstart . midtags . tagend
+    let pnb_blockstart = pnb =~# tagstart . l:blocktags . tagend
+    let pnb_blockend   = pnb =~# tagstart . 'end' . l:blocktags . tagend
+    let pnb_blockmid   = pnb =~# tagstart . s:midtags . tagend
 
-    let cur_blockstart = cur =~# tagstart . blocktags . tagend
-    let cur_blockend   = cur =~# tagstart . 'end' . blocktags . tagend
-    let cur_blockmid   = cur =~# tagstart . midtags . tagend
+    let cur_blockstart = cur =~# tagstart . l:blocktags . tagend
+    let cur_blockend   = cur =~# tagstart . 'end' . l:blocktags . tagend
+    let cur_blockmid   = cur =~# tagstart . s:midtags . tagend
 
-    if pnb_blockstart && !pnb_blockend
+    if pnb_blockstart && !pnb_blockend && pnb_blockstart != pnb_blockend
         let ind = ind + &sw
-    elseif pnb_blockmid && !pnb_blockend
+    elseif pnb_blockmid && !pnb_blockend && pnb_blockmid != pnb_blockstart && pnb_blockmid != pnb_blockend
         let ind = ind + &sw
     endif
 
-    if cur_blockend && !cur_blockstart
+    if cur_blockend && !cur_blockstart && cur_blockend != cur_blockstart
         let ind = ind - &sw
-    elseif cur_blockmid
+    elseif cur_blockmid && cur_blockmid != cur_blockstart && cur_blockmid != cur_blockend
         let ind = ind - &sw
     endif
 
