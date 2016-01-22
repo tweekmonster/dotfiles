@@ -23,7 +23,7 @@ endif
 let b:html_indentexpr = &l:indentexpr
 
 let b:did_indent = 1
-let s:blocktags = ['block', 'for', 'if', 'with', 'autoescape', 'comment', 'filter', 'spaceless', 'verbatim']
+let s:blocktags = ['block', 'cache', 'for', 'if', 'with', 'autoescape', 'comment', 'filter', 'spaceless', 'verbatim']
 let s:midtags = '\(empty\|else\|elif\)'
 
 setlocal indentexpr=GetDjangoIndent()

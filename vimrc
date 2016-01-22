@@ -18,103 +18,110 @@ if has('vim_starting')
     if !has('nvim')
         set nocompatible
     endif
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    " set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
-" NeoBundle (Plugins) {{{1
+" vim-plug (Plugins) {{{1
 filetype off
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundleLocal ~/dotfiles/misc/vim_bundle
-NeoBundleLocal ~/dev/vim
+" call neobundle#begin(expand('~/.vim/bundle/'))
+call plug#begin('~/.vim/plugged')
+" PlugFetch 'Shougo/neobundle.vim'
+" PlugLocal ~/dotfiles/misc/vim_bundle
+" PlugLocal ~/dev/vim
+Plug '~/dotfiles/misc/vim_bundle/base16_custom'
+Plug '~/dotfiles/misc/vim_bundle/django-custom'
+Plug '~/dotfiles/misc/vim_bundle/misc'
+Plug '~/dev/vim/sshclip'
+Plug '~/dev/vim/fzf-filesmru'
 
 " Theming
-NeoBundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " Git Related
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'airblade/vim-gitgutter'
-" NeoBundle 'shuber/vim-promiscuous'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
+" Plug 'shuber/vim-promiscuous'
 
 " Snippets
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'bonsaiben/bootstrap-snippets'
-NeoBundle 'SirVer/ultisnips', {
-            \ 'vim_version': '7.4',
-            \ }
+Plug 'mattn/emmet-vim'
+if v:version > 703
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'bonsaiben/bootstrap-snippets'
+endif
 
 " Linting
-NeoBundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 
 " File Types
-NeoBundle 'hdima/python-syntax'
-NeoBundle 'fatih/vim-nginx'
-NeoBundle 'othree/xml.vim'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'nono/jquery.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'tmux-plugins/vim-tmux'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'garyburd/go-explorer'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'icook/Vim-Jinja2-Syntax'
-NeoBundle 'cespare/vim-toml'
+Plug 'hdima/python-syntax'
+Plug 'fatih/vim-nginx'
+Plug 'othree/xml.vim'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'nono/jquery.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'groenewege/vim-less'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'fatih/vim-go'
+Plug 'garyburd/go-explorer'
+Plug 'elzr/vim-json'
+Plug 'icook/Vim-Jinja2-Syntax'
+Plug 'cespare/vim-toml'
+Plug 'csscomb/vim-csscomb'
 
 " Python
-NeoBundle 'klen/python-mode'
-NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'fisadev/vim-isort'
+Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'fisadev/vim-isort'
 
 " File Navigation
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'junegunn/fzf', {'build': './install'}
-NeoBundle 'junegunn/fzf.vim'
+Plug 'Shougo/vimfiler.vim'
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --bin'}
+Plug 'junegunn/fzf.vim'
 
 " Text Utilities
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-abolish'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'Raimondi/delimitMate'
-" NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'michaeljsmith/vim-indent-object'
-NeoBundle 'edsono/vim-matchit'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-textobj-line'
-NeoBundle 'itchyny/vim-cursorword'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'chrisbra/NrrwRgn'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Raimondi/delimitMate'
+" Plug 'Yggdroot/indentLine'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'edsono/vim-matchit'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'itchyny/vim-cursorword'
+Plug 'tomtom/tcomment_vim'
+Plug 'chrisbra/NrrwRgn'
 
 " General Utilities
-NeoBundle 'editorconfig/editorconfig-vim'
-" NeoBundle 'tweekmonster/sshclip'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'tpope/vim-obsession'
-NeoBundle 'airblade/vim-rooter'
-NeoBundle 'vim-scripts/BufOnly.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \    },
-      \ }
-" NeoBundle 'Shougo/deoplete.nvim'
+Plug 'editorconfig/editorconfig-vim'
+" Plug 'tweekmonster/sshclip'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-obsession'
+Plug 'airblade/vim-rooter'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
+"      \ 'build' : {
+"      \     'windows' : 'tools\\update-dll-mingw',
+"      \     'cygwin' : 'make -f make_cygwin.mak',
+"      \     'mac' : 'make -f make_mac.mak',
+"      \     'linux' : 'make',
+"      \     'unix' : 'gmake',
+"      \    },
+"      \ }
 
-call neobundle#end()
+Plug 'Shougo/deoplete.nvim'
+
+" call neobundle#end()
+call plug#end()
 
 filetype plugin indent on
-NeoBundleCheck
+" PlugCheck
 
 
 " Vim settings {{{1
@@ -380,6 +387,7 @@ augroup vimrc_general
     autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
     autocmd FileType xml setlocal foldlevelstart=2
     autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+    autocmd FileType scss setlocal foldmethod=marker foldmarker={,}
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>strip_white_space()
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter zshrc,*.zsh setlocal filetype=zsh
@@ -710,9 +718,9 @@ augroup END
 
 
 " Plugin - FZF {{{1
-if executable('ag')
+if executable('pt')
     " Filter items through ag to respect gitignore
-    let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+    let $FZF_DEFAULT_COMMAND = 'pt -l -g ""'
 endif
 
 function! <SID>save_history()

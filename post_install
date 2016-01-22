@@ -14,17 +14,17 @@ if [[ ! -e "$nvim_dir/nvim/init.vim" ]]; then
     ln -s "$HOME/.vimrc" "$nvim_dir/nvim/init.vim"
 fi
 
-vim_bundle="${HOME}/.vim/bundle"
-neobundle="${vim_bundle}/neobundle.vim"
-mkdir -p "$vim_bundle"
-if [[ -L "$neobundle" ]]; then
-    rm -f "$neobundle"
-fi
-
-if [[ ! -d "$neobundle" ]]; then
-    cd "$vim_bundle"
-    git clone https://github.com/Shougo/neobundle.vim.git
-else
-    cd "$neobundle"
-    git pull origin master
-fi
+# vim_bundle="${HOME}/.vim/bundle"
+# neobundle="${vim_bundle}/neobundle.vim"
+# mkdir -p "$vim_bundle"
+# if [[ -L "$neobundle" ]]; then
+#     rm -f "$neobundle"
+# fi
+#
+# if [[ ! -d "$neobundle" ]]; then
+#     cd "$vim_bundle"
+#     git clone https://github.com/Shougo/neobundle.vim.git
+# else
+#     cd "$neobundle"
+#     git pull origin master
+# fi
