@@ -316,7 +316,10 @@ augroup vimrc_keymaps
     autocmd!
     autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
     autocmd FileType html,htmldjango,jinja nnoremap <leader>tu vit"txvat"tp
+    autocmd FileType json cabbrev <buffer><silent> jq exec '%!jq .'
+    autocmd FileType python :iabbrev improt import
 augroup END
+" autocmd FileType json cabbrev !jq %!jq .
 
 
 
@@ -387,7 +390,7 @@ augroup vimrc_general
     autocmd FileType man setlocal nolist norelativenumber nonumber nomodifiable
     autocmd FileType xml setlocal foldlevelstart=2
     autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
-    autocmd FileType scss setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType scss setlocal foldmethod=marker foldmarker={,} iskeyword+=-
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.rb :call <SID>strip_white_space()
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter zshrc,*.zsh setlocal filetype=zsh
