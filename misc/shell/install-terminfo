@@ -1,17 +1,17 @@
 #!/usr/bin/env zsh
 
-tmpfile=$(mktemp '/tmp/terminfo.XXXXXXX')
-infocmp -1 xterm-256color | grep -Ev '(sitm|ritm)=' > $tmpfile
-echo '\tsitm=\E[3m,' >> $tmpfile
-echo '\tritm=\E[23m,' >> $tmpfile
-/usr/bin/tic $tmpfile
-
-infocmp -1 screen-256color | grep -Ev '(sitm|ritm)=' > $tmpfile
-echo '\tsitm=\E[3m,' >> $tmpfile
-echo '\tritm=\E[23m,' >> $tmpfile
-/usr/bin/tic $tmpfile
-
-rm -f $tmpfile
+# tmpfile=$(mktemp '/tmp/terminfo.XXXXXXX')
+# infocmp -1 xterm-256color | grep -Ev '(sitm|ritm)=' > $tmpfile
+# echo '\tsitm=\E[3m,' >> $tmpfile
+# echo '\tritm=\E[23m,' >> $tmpfile
+# /usr/bin/tic $tmpfile
+#
+# infocmp -1 screen-256color | grep -Ev '(sitm|ritm)=' > $tmpfile
+# echo '\tsitm=\E[3m,' >> $tmpfile
+# echo '\tritm=\E[23m,' >> $tmpfile
+# /usr/bin/tic $tmpfile
+#
+# rm -f $tmpfile
 
 cat <<EOF|/usr/bin/tic -x -
 tmux|tmux terminal multiplexer,

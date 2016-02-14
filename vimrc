@@ -18,22 +18,18 @@ if has('vim_starting')
     if !has('nvim')
         set nocompatible
     endif
-    " set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
 " vim-plug (Plugins) {{{1
 filetype off
-" call neobundle#begin(expand('~/.vim/bundle/'))
 call plug#begin('~/.vim/plugged')
-" PlugFetch 'Shougo/neobundle.vim'
-" PlugLocal ~/dotfiles/misc/vim_bundle
-" PlugLocal ~/dev/vim
 Plug '~/dotfiles/misc/vim_bundle/base16_custom'
 Plug '~/dotfiles/misc/vim_bundle/django-custom'
 Plug '~/dotfiles/misc/vim_bundle/misc'
 Plug '~/dev/vim/sshclip'
 Plug '~/dev/vim/fzf-filesmru'
+Plug '~/dev/vim/braceless.vim'
 
 " Theming
 Plug 'bling/vim-airline'
@@ -42,12 +38,11 @@ Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
-" Plug 'shuber/vim-promiscuous'
 
 " Snippets
 Plug 'mattn/emmet-vim'
 if v:version > 703
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' | Plug 'bonsaiben/bootstrap-snippets'
+    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 endif
 
 " Linting
@@ -71,7 +66,7 @@ Plug 'cespare/vim-toml'
 Plug 'csscomb/vim-csscomb'
 
 " Python
-Plug 'klen/python-mode'
+" Plug 'klen/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 
@@ -88,34 +83,29 @@ Plug 'tpope/vim-abolish'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'Raimondi/delimitMate'
-" Plug 'Yggdroot/indentLine'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'edsono/vim-matchit'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
-Plug 'itchyny/vim-cursorword'
 Plug 'tomtom/tcomment_vim'
 Plug 'chrisbra/NrrwRgn'
+Plug 'wellle/targets.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vader.vim'
 
 " General Utilities
+Plug 'tpope/vim-scriptease'
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'tweekmonster/sshclip'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-obsession'
 Plug 'airblade/vim-rooter'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-"      \ 'build' : {
-"      \     'windows' : 'tools\\update-dll-mingw',
-"      \     'cygwin' : 'make -f make_cygwin.mak',
-"      \     'mac' : 'make -f make_mac.mak',
-"      \     'linux' : 'make',
-"      \     'unix' : 'gmake',
-"      \    },
-"      \ }
 
 Plug 'Shougo/deoplete.nvim'
+Plug 'mbbill/undotree'
+Plug 'ryanoasis/vim-devicons'
 
 " call neobundle#end()
 call plug#end()
@@ -138,7 +128,7 @@ set number
 set showcmd
 set cursorline
 set wildmenu
-set nolazyredraw
+set lazyredraw
 set showmatch
 set splitbelow
 set splitright
@@ -219,6 +209,15 @@ function! <SID>fuck_you_q()
     endif
 endfunction
 
+function! <SID>set_help_options()
+    let runtimep = expand('$VIMRUNTIME')
+    let helpp = expand('%')
+    if helpp =~ '^'.runtimep || helpp =~ '^'.expand('~/.vim')
+        setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help noswapfile nobuflisted
+        exec 'sign unplace * file='.helpp
+    endif
+endfunction
+
 augroup Annoying
     autocmd!
     " Stop screen flashing
@@ -228,10 +227,10 @@ augroup Annoying
     " <insert some expression about nickels and being rich here>
     autocmd FileType vim call <SID>fuck_you_q()
     autocmd FileType help nmap <buffer> q :q<cr>
+    autocmd BufEnter __doc__ nnoremap <buffer> q :bdel
 
     " Restore help buffers to their original glory
-    autocmd FileType help setlocal nolist norelativenumber nonumber nomodifiable readonly buftype=help noswapfile nobuflisted
-    autocmd FileType help exec 'sign unplace * file=' . expand('%')
+    autocmd FileType help call <SID>set_help_options()
 augroup END
 
 
@@ -311,16 +310,50 @@ else
     nnoremap <A-h> <C-W><C-H>
 endif
 
+nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
+
+
+function! <SID>HTMLPretty(mode)
+  let search = @/
+  let htmlpat = '/\v(\<script[^\>]*)@<!\>\s*\</\>\r\</ge'
+  let tplpat = '/\v%(\<script[^\>]*)@<!(\>|\})\s*(\<|\{)/\1\r\2/ge'
+  let sel = '%s'
+  let c = htmlpat
+  let fmt = 'ggVG='
+  if a:mode !~? 'v'
+    exec 'normal! ggVGJ'
+  else
+    let sel = "'<,'>s"
+    let fmt = '`[V`]='
+    exec 'normal! J'
+  endif
+
+  if &ft != 'html'
+    let c = tplpat
+  endif
+
+  exec ':'.sel.c.' | normal! '.fmt.' | :'.sel.'/>\s*</></ge | normal! `[ | :nohl'
+  let @/ = search
+  " exec ':'.sel.c | exec 'normal '.fmt | exec ':'.sel.'/>\s*</></ge' | exec ':nohl' | let @/ = search
+endfunction
+
 " File type keymaps
 augroup vimrc_keymaps
     autocmd!
     autocmd FileType c,cpp,objc nnoremap <silent><buffer> <leader>t :call <SID>c_swap_source()<cr>
+" Unwrap html tag
     autocmd FileType html,htmldjango,jinja nnoremap <leader>tu vit"txvat"tp
+" Prettify html
+    autocmd FileType html,htmldjango,jinja nnoremap <leader>p :call <SID>HTMLPretty('n')<cr>
+    autocmd FileType html,htmldjango,jinja vnoremap <leader>p :call <SID>HTMLPretty('v')<cr>
+" Original prettify for posterity
+"    autocmd FileType html cabbrev <buffer><silent> pretty exec 'normal ggVGJ' <bar> exec ':%s/\v(\<script[^\>]*)@<!\>\s*\</\>\r\</ge' <bar> exec 'normal ggVG=' <bar> exec ':%s/>\s*</></ge' <bar> :nohl
+"    autocmd FileType htmldjango,jinja cabbrev <buffer><silent> pretty exec 'normal ggVGJ' <bar> exec ':%s/\v%(\<script[^\>]*)@<!(\>\|\})\s*(\<\|\{)/\1\r\2/ge' <bar> exec 'normal ggVG=' <bar> exec ':%s/>\s*</></ge' <bar> :nohl
     autocmd FileType json cabbrev <buffer><silent> jq exec '%!jq .'
     autocmd FileType python :iabbrev improt import
+    autocmd FileType python,coffee BracelessEnable +fold +highlight-cc2
 augroup END
-" autocmd FileType json cabbrev !jq %!jq .
-
 
 
 " Functions {{{1
@@ -378,7 +411,6 @@ let python_highlight_all = 1
 augroup vimrc_python
     autocmd FileType python setlocal completeopt-=preview textwidth=79 shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType python,toml let b:delimitMate_nesting_quotes = ['"', "'"]
-    autocmd FileType python nnoremap <buffer> <leader>3 :call jedi#force_py_version(3)<cr>
     autocmd FileType htmldjango,jinja UltiSnipsAddFiletypes html
     autocmd FileType jinja UltiSnipsAddFiletypes jinja2
 augroup END
@@ -562,6 +594,7 @@ augroup vimrc_vimfiler
     autocmd!
     autocmd FileType vimfiler nmap <buffer> q Q
     autocmd FileType vimfiler set nonumber norelativenumber
+    autocmd FileType vimfiler normal gs
     autocmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
 augroup END
 
@@ -592,6 +625,9 @@ let g:syntastic_html_tidy_ignore_errors = [
             \ 'plain text isn''t allowed in <head> elements',
             \ 'trimming empty',
             \ ]
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
 augroup vimrc_syntastic
     autocmd BufEnter * if (exists('b:syntastic_skip_checks')) | unlet b:syntastic_skip_checks
@@ -624,6 +660,7 @@ let g:pymode_rope = 0
 let g:pymode_lint = 0
 let g:pymode_options_max_line_length = 79
 let g:pymode_run = 0
+let g:pymode_motion = 0
 
 
 " Plugin - rooter {{{1
@@ -645,7 +682,6 @@ augroup vimrc_deoplete
     autocmd!
     autocmd FileType go let b:deoplete_disable_auto_complete=1
 augroup END
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 " Plugin - UltiSnips {{{1
@@ -658,8 +694,8 @@ let g:user_emmet_leader_key = '<c-c>'
 
 " Plugin - go-vim {{{1
 let g:go_autodetect_gopath = 1
-let g:go_auto_type_info = 1
-let g:go_fmt_fail_silently = 0
+let g:go_auto_type_info = 0
+let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_highlight_space_tab_error = 0
 let g:go_highlight_array_whitespace_error = 0
@@ -709,17 +745,6 @@ endfunction
 call editorconfig#AddNewHook(function('VimrcEditorConfigFiletypeHook'))
 
 
-" Plugin - html5 {{{1
-let g:html_exclude_tags = ['source']
-
-
-" Plugin - coffee-script {{{1
-augroup vimrc_coffeescript
-    autocmd!
-    autocmd BufNewFile,BufReadPost *.coffee setlocal foldmethod=indent nofoldenable
-augroup END
-
-
 " Plugin - FZF {{{1
 if executable('pt')
     " Filter items through ag to respect gitignore
@@ -744,6 +769,10 @@ augroup vimrc_fzf
     autocmd FileType help nmap <buffer> <c-p> :Helptags<cr>
 augroup END
 
+
+" Plugin - easy-align
+vmap <Enter> <Plug>(LiveEasyAlign)
+nmap ga <Plug>(LiveEasyAlign)
 
 " }}}
 

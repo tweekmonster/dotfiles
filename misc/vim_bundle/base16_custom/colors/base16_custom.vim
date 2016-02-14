@@ -42,7 +42,7 @@ function! s:p.gui(color)
   if a:color == s:p.gui00
     return s:p.gui07
   elseif a:color == s:p.gui01
-    return s:p.gui06
+    return s:p.gui0
   elseif a:color == s:p.gui02
     return s:p.gui05
   elseif a:color == s:p.gui03
@@ -86,7 +86,7 @@ function! s:p.cterm(color)
     return s:p.cterm00
   endif
 
-  return a:color
+  return string(a:color)
 endfunction
 
 
@@ -113,7 +113,8 @@ call <sid>hi("MatchParen",    s:p.gui0C, s:p.gui02, s:p.cterm0C, s:p.cterm02, "u
 call <sid>hi("ModeMsg",       s:p.gui0B, "", s:p.cterm0B, "", "")
 call <sid>hi("MoreMsg",       s:p.gui0B, "", s:p.cterm0B, "", "")
 call <sid>hi("NonText",       s:p.gui02, "", s:p.cterm02, "", "")
-call <sid>hi("Normal",        s:p.gui05, s:p.gui00, s:p.cterm05, 16, "")
+" call <sid>hi("Normal",        s:p.gui05, "", s:p.cterm05, 232, "")
+call <sid>hi("Normal",        s:p.gui05, "", s:p.cterm05, "none", "")
 call <sid>hi("PMenuSel",      s:p.gui01, s:p.gui04, s:p.cterm01, s:p.cterm04, "")
 call <sid>hi("PMenu",         s:p.gui04, s:p.gui01, s:p.cterm04, s:p.cterm01, "none")
 call <sid>hi("Question",      s:p.gui0D, "", s:p.cterm0D, "", "")
